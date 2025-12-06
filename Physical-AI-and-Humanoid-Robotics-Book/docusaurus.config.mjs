@@ -56,7 +56,7 @@ export default {
           position: 'left',
           label: 'Book',
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
+       // { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book',
           label: 'GitHub',
@@ -89,7 +89,7 @@ export default {
             // { label: 'Blog', to: '/blog' },
             {
               label: 'GitHub',
-              href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book',
+              href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics/Physical-AI-and-Humanoid-Robotics-Book',
             },
           ],
         },
