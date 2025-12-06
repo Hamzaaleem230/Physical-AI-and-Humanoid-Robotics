@@ -89,7 +89,7 @@ export default {
             // { label: 'Blog', to: '/blog' },
             {
               label: 'GitHub',
-              href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics/Physical-AI-and-Humanoid-Robotics-Book',
+              href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics/tree/main/Physical-AI-and-Humanoid-Robotics-Book',
             },
           ],
         },
