@@ -1,55 +1,64 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- Sync Impact Report:
+Version change:  → 1.0.0
+Modified principles: None
+Added sections: Key Standards, Constraints
+Removed sections: None
+Templates requiring updates:
+- .specify/templates/plan-template.md: ⚠ pending
+- .specify/templates/spec-template.md: ⚠ pending
+- .specify/templates/tasks-template.md: ⚠ pending
+- .specify/templates/commands/*.md: ⚠ pending
+Follow-up TODOs: RATIFICATION_DATE
+-->
+# Physical AI and Humanoid Robotics Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Accuracy
+Saari information authentic academic sources, research papers, robotics documentation aur primary technical references se verify ki jayegi.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Clarity
+Writing aisi hogi jo computer science / engineering background ke readers ko asani se samajh aaye.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Rigor
+Scientific, engineering aur robotics concepts ko peer-reviewed sources se support kiya jayega.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Reproducibility
+Har experiment, workflow, architecture aur robotics pipeline ko reproducible tariqe se explain kiya jayega.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Consistency
+Har chapter aik hi technical tone, format aur structure follow karega.
 
-### [PRINCIPLE_6_NAME]
+### VI. [PRINCIPLE_6_NAME]
 
 
-[PRINCIPLE__DESCRIPTION]
+## Key Standards
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- Saare factual claims traceable sources ke sath honge.
+- Citation format: APA style.
+- Source types: Minimum 50% peer-reviewed (journals, conferences).
+- Code examples: Test-run hone chahiye (Python, ROS, simulations, control systems).
+- Visuals: Diagrams / flowcharts need to be technically accurate.
+- Plagiarism: 0% tolerance.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Constraints
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- Word count: 5,000–7,000 words.
+- Minimum 15 academic sources.
+- Format: Docusaurus markdown (.md / .mdx) files.
+- Output buildable as a static site with valid Docusaurus build.
+- Deployment: GitHub Pages per successful CI/CD workflow.
+- Writing clarity: Flesch-Kincaid grade 10–12 target.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+All PRs/reviews must verify compliance. Complexity must be justified.
+Success criteria:
+- Saare claims sources ke sath verify ho jayen.
+- Zero plagiarism.
+- Docusaurus build bina error ke compile ho.
+- GitHub Pages deployment first attempt me pass ho jae.
+- Robotics concepts (AI control, sensing, locomotion, embodiment) academically correct hon.
+- Peer-review check pass ho jae (accuracy, clarity, reproducibility).
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): Original adoption date is unknown. | **Last Amended**: 2025-12-05

@@ -1,0 +1,32 @@
+name: Deploy Docusaurus site to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master # Adjust this to your default branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Use a Node.js version compatible with Docusaurus
+
+      - name: Install dependencies
+        working-directory: ./docs # Assuming Docusaurus is in the /docs folder
+        run: npm install
+
+      - name: Build Docusaurus website
+        working-directory: ./docs
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build # Adjust if your build output directory is different

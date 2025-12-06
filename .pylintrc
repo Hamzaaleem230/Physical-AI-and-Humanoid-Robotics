@@ -1,0 +1,24 @@
+[MASTER]
+disable=
+enable=
+good-names=i,j,k,x,y,z,e
+ignore=CVS
+imports=
+init-hook=
+extension-pkg-whitelist=
+generated-members=
+load-plugins=
+output-format=
+persistent=yes
+log-args=no
+comment=yes
+max-line-length=100
+ignore-patterns=*.pyc,*.egg-info,build,dist,venv
+good-names-rgx=^([A-Z_]{2,}|[a-z_][a-z0-9_]{2,})$
+dummy-variables-rgx=^_+$|(_[A-Za-z0-9_]*)*$
+
+[MESSAGES CONTROL]
+disable=C0114, C0115, C0116
+
+[FORMAT]
+max-line-length=100
