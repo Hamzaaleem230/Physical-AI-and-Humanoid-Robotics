@@ -1,8 +1,0 @@
-# Backend requirements
-fastapi
-uvicorn[standard]
-pydantic
-qdrant-client
-sentence-transformers
-# Add LLM library here, e.g., openai, google-generativeai, anthropic
-python-dotenv
