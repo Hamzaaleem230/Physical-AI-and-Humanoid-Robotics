@@ -1,13 +1,14 @@
 <!-- Sync Impact Report:
-Version change:  → 1.0.0
-Modified principles: None
-Added sections: Key Standards, Constraints
+Version change: 1.0.0 → 1.1.0
+Modified principles:
+- [PRINCIPLE_6_NAME] → RAG Chatbot Integration
+Added sections: None
 Removed sections: None
 Templates requiring updates:
-- .specify/templates/plan-template.md: ⚠ pending
-- .specify/templates/spec-template.md: ⚠ pending
-- .specify/templates/tasks-template.md: ⚠ pending
-- .specify/templates/commands/*.md: ⚠ pending
+- .specify/templates/plan-template.md: ✅ up-to-date (dynamic)
+- .specify/templates/spec-template.md: ✅ up-to-date (dynamic)
+- .specify/templates/tasks-template.md: ✅ up-to-date (dynamic)
+- .gemini/commands/*.toml: ✅ checked, no changes needed
 Follow-up TODOs: RATIFICATION_DATE
 -->
 # Physical AI and Humanoid Robotics Constitution
@@ -29,8 +30,16 @@ Har experiment, workflow, architecture aur robotics pipeline ko reproducible tar
 ### V. Consistency
 Har chapter aik hi technical tone, format aur structure follow karega.
 
-### VI. [PRINCIPLE_6_NAME]
+### VI. RAG Chatbot Integration
+Docusaurus book ke andar ek RAG-based intelligent chatbot integrate kiya jayega.
 
+- **UI/UX**: Chatbot har page par bottom-right corner mein ek floating chat bubble/button ke form me dikhega.
+- **Frontend**: Frontend code `Physical-AI-and-Humanoid-Robotics-Book/src/components/chatbot/` mein rakha jayega. Global injection `Physical-AI-and-Humanoid-Robotics-Book/src/theme/Root.js` ya Layout wrapper ke through hoga.
+- **Backend**: Backend FastAPI use karke banaya jayega aur `/embed`, `/query`, `/chat`, `/health`, `/ingest-book` endpoints provide karega.
+- **Data Stores**: Embeddings Qdrant Cloud (Free Tier) mein store honge. Optional user accounts Neon Serverless Postgres mein store honge.
+- **AI Model**: RAG inference ke liye OpenAI, Gemini 2.0 Flash, ya Claude 3.7 use hoga.
+- **Core Features**: Chatbot sirf book ke content se jawab dega, "answer from selected text" mode ko support karega, responses stream karega, aur session ke andar memory rakhega.
+- **Project Structure**: Saare naye specs `specs/002-rag-chatbot/` directory mein rakhe jayenge. Purane book specs (`specs/001-physical-ai-book/`) ko touch nahi kiya jayega.
 
 ## Key Standards
 
@@ -61,4 +70,4 @@ Success criteria:
 - Robotics concepts (AI control, sensing, locomotion, embodiment) academically correct hon.
 - Peer-review check pass ho jae (accuracy, clarity, reproducibility).
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): Original adoption date is unknown. | **Last Amended**: 2025-12-05
+**Version**: 1.1.0 | **Ratified**: TODO(RATIFICATION_DATE): Original adoption date is unknown. | **Last Amended**: 2025-12-07
