@@ -1,26 +1,42 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './ChatWindow.module.css';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext'; // <-- FIX: ADDED THIS IMPORT
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 const SESSION_STORAGE_KEY = 'chatbot_messages';
-// Purani BACKEND_URL line yahan se hata di gayi hai.
 
 function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
-    // FIX: Context Hook ka istemaal karke configuration se URL hasil karna
+    // Context Hook ka istemaal karke configuration se URL hasil karna
     const { siteConfig } = useDocusaurusContext();
     const BACKEND_URL = siteConfig.customFields.BACKEND_URL;
     
+    // FIX: Lazy initialization function ka use
+    // Yeh function sirf client-side (browser) mein chalta hai, server (SSG) mein nahi.
     const [messages, setMessages] = useState(() => {
-        const savedMessages = sessionStorage.getItem(SESSION_STORAGE_KEY);
-        return savedMessages ? JSON.parse(savedMessages) : [{ id: 1, text: 'Welcome! How can I help you today?', sender: 'bot' }];
+        // SSG/Server side check: Agar window ya sessionStorage available nahi hai, toh default value return karo.
+        if (typeof window === 'undefined' || typeof window.sessionStorage === 'undefined') {
+            return [{ id: 1, text: 'Welcome! How can I help you today?', sender: 'bot' }];
+        }
+        
+        // Client side (Browser) logic:
+        try {
+            const savedMessages = window.sessionStorage.getItem(SESSION_STORAGE_KEY);
+            return savedMessages ? JSON.parse(savedMessages) : [{ id: 1, text: 'Welcome! How can I help you today?', sender: 'bot' }];
+        } catch (error) {
+            console.error("Error reading sessionStorage:", error);
+            return [{ id: 1, text: 'Welcome! How can I help you today?', sender: 'bot' }];
+        }
     });
+    
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [apiError, setApiError] = useState(null); 
     const messagesEndRef = useRef(null);
 
+    // FIX: useEffect mein bhi sessionStorage access se pehle window check zaroori hai
     useEffect(() => {
-        sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(messages));
+        if (typeof window !== 'undefined' && window.sessionStorage) {
+            window.sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(messages));
+        }
     }, [messages]);
 
     const scrollToBottom = () => {
