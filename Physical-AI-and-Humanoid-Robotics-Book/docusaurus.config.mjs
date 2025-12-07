@@ -25,11 +25,7 @@ export default {
         docs: {
           sidebarPath: path.resolve('./sidebars.js'),
           editUrl:
-<<<<<<< HEAD
-            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics/', 
-=======
-            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics/', // Yeh setting home page ko docs/intro se link karne ke liye zaroori hai
->>>>>>> 02a5c34dbecd875ef6b55f0596cdd2e8623ef6a5
+            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics',
           routeBasePath: '/',
         },
         blog: {
@@ -67,10 +63,6 @@ export default {
           position: 'left',
           label: 'Book',
         },
-<<<<<<< HEAD
-=======
-        // { to: '/blog', label: 'Blog', position: 'left' },
->>>>>>> 02a5c34dbecd875ef6b55f0596cdd2e8623ef6a5
         {
           href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics',
           label: 'GitHub',

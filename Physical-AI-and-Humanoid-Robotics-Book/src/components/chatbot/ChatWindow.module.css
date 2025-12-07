@@ -1,0 +1,193 @@
+.chatWindow {
+  position: fixed;
+  bottom: 90px; /* Above the chat button */
+  right: 20px;
+  width: 350px;
+  height: 500px;
+  background-color: var(--ifm-background-color); /* Docusaurus background color */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  z-index: 999; /* Below the chat button if it needs to be clicked through */
+  overflow: hidden;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.header h3 {
+  margin: 0;
+  color: white; /* Ensure heading color is white against primary background */
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1; /* Adjust to better center the 'X' */
+}
+
+.messages {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+.messages p {
+  margin-bottom: 8px;
+}
+
+.message {
+  padding: 8px 12px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  max-width: 80%;
+  position: relative;
+  word-wrap: break-word;
+  color: var(--ifm-font-color-base);
+}
+
+.bot {
+  background-color: var(--ifm-color-emphasis-200); /* Lighter background for bot messages */
+  align-self: flex-start;
+  border-bottom-left-radius: 2px;
+}
+
+.user {
+  background-color: var(--ifm-color-primary-light); /* Primary color for user messages */
+  color: white;
+  align-self: flex-end;
+  margin-left: auto; /* Push user messages to the right */
+  border-bottom-right-radius: 2px;
+}
+
+.inputArea {
+  display: flex;
+  padding: 10px 15px;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  background-color: var(--ifm-background-surface-color);
+}
+
+.inputArea input {
+  flex-grow: 1;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 5px;
+  padding: 8px 10px;
+  margin-right: 10px;
+  font-size: 1em;
+  background-color: var(--ifm-background-color); /* Match Docusaurus input style */
+  color: var(--ifm-font-color-base);
+}
+
+.inputArea input:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px rgba(var(--ifm-color-primary-rgb), 0.2);
+}
+
+.inputArea button {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 15px;
+  cursor: not-allowed; /* Disabled by default */
+  opacity: 0.7;
+}
+
+.inputArea button:hover:not(:disabled) {
+  background-color: var(--ifm-color-primary-dark);
+}
+
+.streamingIndicator {
+  display: inline-block;
+  animation: blink-caret .75s step-end infinite;
+  font-weight: bold;
+}
+
+@keyframes blink-caret {
+  from, to { border-right-color: transparent }
+  50% { border-right-color: var(--ifm-font-color-base) } /* Use theme's font color for visibility */
+}
+
+.selectedTextPrompt {
+  background-color: var(--ifm-background-color);
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.selectedTextPrompt p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.selectedTextPrompt blockquote {
+  margin: 0;
+  padding: 5px 10px;
+  background-color: var(--ifm-color-emphasis-100);
+  border-left: 3px solid var(--ifm-color-primary);
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.selectedTextPrompt button {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.2s;
+}
+
+.selectedTextPrompt button:hover:not(:disabled) {
+  background-color: var(--ifm-color-primary-dark);
+}
+
+.selectedTextPrompt button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.clearSelectedTextButton {
+  background-color: var(--ifm-color-secondary) !important;
+}
+
+.clearSelectedTextButton:hover:not(:disabled) {
+  background-color: var(--ifm-color-secondary-dark) !important;
+}
+
+.apiError {
+  background-color: var(--ifm-color-danger-light);
+  color: var(--ifm-color-danger);
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+
