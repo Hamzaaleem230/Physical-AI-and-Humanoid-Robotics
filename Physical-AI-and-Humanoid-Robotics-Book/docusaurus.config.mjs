@@ -5,12 +5,19 @@ export default {
   title: 'Physical AI and Humanoid Robotics',
   tagline: 'From First Principles to Real-World Deployment',
   url: 'https://Hamzaaleem230.github.io',
-  baseUrl: '/', // Broken Links ko theek kiya, ab yeh 'throw' hi rahega (Recommended) // agar aap isse 'warn' ya 'ignore' karna chahte hain toh 'warn' ya 'ignore' likh dein
-  onBrokenLinks: 'throw', // ⚠️ DEPRECATED OPTION HATA DI GAYI HAI. Ab yeh 'markdown' object mein hai. // onBrokenMarkdownLinks: 'warn',
+  baseUrl: '/', 
+  onBrokenLinks: 'throw', 
   favicon: 'img/favicon.ico',
   organizationName: 'Hamzaaleem230',
   projectName: 'Physical-AI-and-Humanoid-Robotics-Book',
 
+  // 🌟 FIX: DEPRECATED 'env' field ko 'customFields' mein move kar diya gaya hai.
+  // Access: client-side code mein ab yeh 'siteConfig.customFields.BACKEND_URL' ke zariye accessible hoga.
+  customFields: {
+    BACKEND_URL: process.env.BACKEND_URL || 'http://localhost:8000',
+  },
+  // ----------------------------------------------------------------------------------
+  
   presets: [
     [
       'classic',
@@ -18,25 +25,25 @@ export default {
         docs: {
           sidebarPath: path.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book/tree/main/', // Yeh setting home page ko docs/intro se link karne ke liye zaroori hai
+            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics/', 
           routeBasePath: '/',
         },
         blog: {
           showReadingTime: true,
           editUrl:
-            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book/tree/main/',
+            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics',
         },
         theme: {
           customCss: path.resolve('./src/css/custom.css'),
         },
       },
     ],
-  ], // Nayi Markdown Configuration Yahan Add Ki Gayi Hai
+  ],
 
   markdown: {
     hooks: {
-      // Deprecated option ko yahan move kar diya gaya hai
-      onBrokenMarkdownLinks: 'warn',
+      // onBrokenMarkdownLinks ko yahan 'markdown.hooks' ke andar rakha gaya hai
+      onBrokenMarkdownLinks: 'warn', 
     },
   },
 
@@ -56,9 +63,8 @@ export default {
           position: 'left',
           label: 'Book',
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
         {
-          href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book',
+          href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics',
           label: 'GitHub',
           position: 'right',
         },
@@ -69,7 +75,7 @@ export default {
       style: 'dark',
       links: [
         {
-          title: 'Docs', // Yeh link theek kiya gaya hai taaki yeh 'intro' page ko link kare
+          title: 'Docs', 
           items: [{ label: 'Book', to: '/preface' }],
         },
         {
@@ -86,10 +92,9 @@ export default {
         {
           title: 'More',
           items: [
-            // { label: 'Blog', to: '/blog' },
             {
               label: 'GitHub',
-              href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book',
+              href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics/tree/main',
             },
           ],
         },
