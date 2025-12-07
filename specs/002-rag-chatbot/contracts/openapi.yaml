@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: RAG Chatbot API
+  version: 1.0.0
+  description: API for the Physical AI book's RAG chatbot.
+
+paths:
+  /health:
+    get:
+      summary: Health Check
+      description: Returns the operational status of the API.
+      responses:
+        '200':
+          description: API is healthy.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"
+
+  /chat:
+    post:
+      summary: Send a Chat Message
+      description: Sends a user's query and returns a streamed response from the RAG pipeline.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: The user's question.
+                session_id:
+                  type: string
+                  format: uuid
+                  description: A unique identifier for the current chat session.
+              required:
+                - query
+      responses:
+        '200':
+          description: A streamed response of text chunks.
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                # OpenAPI doesn't have great support for streaming responses.
+                # This is a representation of the expected data flow.
+                example: |
+                  data: {"token": "The first part of the answer"}
+                  
+                  data: {"token": " the second part."}
+
+                  data: {"status": "done"}
+
+  /ingest-book:
+    post:
+      summary: Trigger Content Ingestion
+      description: >
+        Kicks off the asynchronous process of ingesting the book's content into the vector database.
+        This should be a protected endpoint.
+      responses:
+        '202':
+          description: Ingestion process has been accepted and started.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Book content ingestion process started."
+                  job_id:
+                    type: string
+                    format: uuid
+                    example: "abc-123-def-456"
