@@ -1,0 +1,16 @@
+# This is a placeholder render.yaml file for the FastAPI backend service.
+# Replace with actual configuration for your Render deployment.
+
+services:
+  - type: web
+    name: rag-chatbot-backend
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: QDRANT_URL
+        sync: false # Set this value in Render dashboard
+      - key: QDRANT_API_KEY
+        sync: false # Set this value in Render dashboard
+      - key: OPENAI_API_KEY # Example for LLM, adjust as needed
+        sync: false # Set this value in Render dashboard
