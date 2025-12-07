@@ -18,13 +18,13 @@ export default {
         docs: {
           sidebarPath: path.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book/tree/main/', // Yeh setting home page ko docs/intro se link karne ke liye zaroori hai
+            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics/', // Yeh setting home page ko docs/intro se link karne ke liye zaroori hai
           routeBasePath: '/',
         },
         blog: {
           showReadingTime: true,
           editUrl:
-            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book/tree/main/',
+            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics',
         },
         theme: {
           customCss: path.resolve('./src/css/custom.css'),
@@ -56,9 +56,9 @@ export default {
           position: 'left',
           label: 'Book',
         },
-       // { to: '/blog', label: 'Blog', position: 'left' },
+        // { to: '/blog', label: 'Blog', position: 'left' },
         {
-          href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book',
+          href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics',
           label: 'GitHub',
           position: 'right',
         },
