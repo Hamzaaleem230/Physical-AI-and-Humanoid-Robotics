@@ -1,0 +1,8 @@
+# Backend requirements
+fastapi
+uvicorn
+pydantic
+qdrant-client
+sentence-transformers
+google-genai
+python-dotenv
