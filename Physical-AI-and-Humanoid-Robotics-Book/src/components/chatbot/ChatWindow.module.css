@@ -1,175 +1,201 @@
+/* ================= Chat Window Container ================= */
 .chatWindow {
-  position: fixed;
-  bottom: 90px; /* Above the chat button */
-  right: 20px;
-  width: 350px;
-  height: 500px;
-  background-color: var(--ifm-background-color); /* Docusaurus background color */
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  display: flex;
-  flex-direction: column;
-  z-index: 999; /* Below the chat button if it needs to be clicked through */
-  overflow: hidden;
-  border: 1px solid var(--ifm-color-emphasis-200);
+  position: fixed !important;
+  bottom: 90px !important;
+  right: 20px !important;
+  width: 350px !important;
+  max-width: 90% !important;
+  height: 500px !important;
+  max-height: 80vh !important;
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-font-color-base) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  z-index: 9999 !important;
+  overflow: hidden !important;
+  border: 1px solid var(--ifm-color-emphasis-200) !important;
+  transition: all 0.3s ease !important;
 }
 
+/* ================= Header ================= */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 15px;
-  background-color: var(--ifm-color-primary);
-  color: white;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 10px 15px !important;
+  background-color: var(--ifm-color-primary) !important;
+  color: white !important;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
 }
 
 .header h3 {
-  margin: 0;
-  color: white; /* Ensure heading color is white against primary background */
+  margin: 0 !important;
+  font-size: 1.1em !important;
+  color: white !important;
 }
 
 .closeButton {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.2em;
-  cursor: pointer;
-  padding: 5px;
-  line-height: 1; /* Adjust to better center the 'X' */
+  background: none !important;
+  border: none !important;
+  color: white !important;
+  font-size: 1.2em !important;
+  cursor: pointer !important;
+  padding: 5px !important;
+  line-height: 1 !important;
+  transition: transform 0.2s !important;
 }
 
+.closeButton:hover {
+  transform: scale(1.2) !important;
+}
+
+/* ================= Messages ================= */
 .messages {
-  flex-grow: 1;
-  padding: 15px;
-  overflow-y: auto;
-  background-color: var(--ifm-background-color);
-  color: var(--ifm-font-color-base);
-  font-size: 0.95em;
-  line-height: 1.4;
+  flex-grow: 1 !important;
+  padding: 15px !important;
+  overflow-y: auto !important;
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-font-color-base) !important;
+  font-size: 0.95em !important;
+  line-height: 1.4 !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(0,0,0,0.2) transparent !important;
 }
 
-.messages p {
-  margin-bottom: 8px;
+.messages::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2) !important;
+  border-radius: 3px !important;
 }
 
 .message {
-  padding: 8px 12px;
-  border-radius: 15px;
-  margin-bottom: 10px;
-  max-width: 80%;
-  position: relative;
-  word-wrap: break-word;
-  color: var(--ifm-font-color-base);
+  padding: 8px 12px !important;
+  border-radius: 15px !important;
+  margin-bottom: 10px !important;
+  max-width: 80% !important;
+  position: relative !important;
+  word-wrap: break-word !important;
+  color: var(--ifm-font-color-base) !important;
 }
 
+/* Bot message */
 .bot {
-  background-color: var(--ifm-color-emphasis-200); /* Lighter background for bot messages */
-  align-self: flex-start;
-  border-bottom-left-radius: 2px;
+  background-color: var(--ifm-color-emphasis-200) !important;
+  align-self: flex-start !important;
+  border-bottom-left-radius: 2px !important;
 }
 
+/* User message */
 .user {
-  background-color: var(--ifm-color-primary-light); /* Primary color for user messages */
-  color: white;
-  align-self: flex-end;
-  margin-left: auto; /* Push user messages to the right */
-  border-bottom-right-radius: 2px;
+  background-color: var(--ifm-color-primary-light) !important;
+  color: white !important;
+  align-self: flex-end !important;
+  margin-left: auto !important;
+  border-bottom-right-radius: 2px !important;
 }
 
+/* ================= Input Area ================= */
 .inputArea {
-  display: flex;
-  padding: 10px 15px;
-  border-top: 1px solid var(--ifm-color-emphasis-200);
-  background-color: var(--ifm-background-surface-color);
+  display: flex !important;
+  padding: 10px 15px !important;
+  border-top: 1px solid var(--ifm-color-emphasis-200) !important;
+  background-color: var(--ifm-background-surface-color) !important;
 }
 
 .inputArea input {
-  flex-grow: 1;
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 5px;
-  padding: 8px 10px;
-  margin-right: 10px;
-  font-size: 1em;
-  background-color: var(--ifm-background-color); /* Match Docusaurus input style */
-  color: var(--ifm-font-color-base);
+  flex-grow: 1 !important;
+  border: 1px solid var(--ifm-color-emphasis-300) !important;
+  border-radius: 5px !important;
+  padding: 8px 10px !important;
+  margin-right: 10px !important;
+  font-size: 1em !important;
+  background-color: var(--ifm-background-color) !important;
+  color: var(--ifm-font-color-base) !important;
 }
 
 .inputArea input:focus {
-  outline: none;
-  border-color: var(--ifm-color-primary);
-  box-shadow: 0 0 0 2px rgba(var(--ifm-color-primary-rgb), 0.2);
+  outline: none !important;
+  border-color: var(--ifm-color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(var(--ifm-color-primary-rgb), 0.2) !important;
 }
 
 .inputArea button {
-  background-color: var(--ifm-color-primary);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 15px;
-  cursor: not-allowed; /* Disabled by default */
-  opacity: 0.7;
+  background-color: var(--ifm-color-primary) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 8px 15px !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+  transition: all 0.2s ease !important;
 }
 
 .inputArea button:hover:not(:disabled) {
-  background-color: var(--ifm-color-primary-dark);
+  background-color: var(--ifm-color-primary-dark) !important;
 }
 
+/* ================= Streaming Indicator ================= */
 .streamingIndicator {
-  display: inline-block;
-  animation: blink-caret .75s step-end infinite;
-  font-weight: bold;
+  display: inline-block !important;
+  animation: blink-caret .75s step-end infinite !important;
+  font-weight: bold !important;
 }
 
 @keyframes blink-caret {
-  from, to { border-right-color: transparent }
-  50% { border-right-color: var(--ifm-font-color-base) } /* Use theme's font color for visibility */
+  from, to { border-right-color: transparent !important; }
+  50% { border-right-color: var(--ifm-font-color-base) !important; }
 }
 
+/* ================= Selected Text Prompt ================= */
 .selectedTextPrompt {
-  background-color: var(--ifm-background-color);
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  background-color: var(--ifm-background-color) !important;
+  border: 1px solid var(--ifm-color-emphasis-300) !important;
+  border-radius: 8px !important;
+  padding: 10px !important;
+  margin-bottom: 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
 }
 
 .selectedTextPrompt p {
-  margin: 0;
-  font-weight: bold;
+  margin: 0 !important;
+  font-weight: bold !important;
 }
 
 .selectedTextPrompt blockquote {
-  margin: 0;
-  padding: 5px 10px;
-  background-color: var(--ifm-color-emphasis-100);
-  border-left: 3px solid var(--ifm-color-primary);
-  font-style: italic;
-  font-size: 0.9em;
+  margin: 0 !important;
+  padding: 5px 10px !important;
+  background-color: var(--ifm-color-emphasis-100) !important;
+  border-left: 3px solid var(--ifm-color-primary) !important;
+  font-style: italic !important;
+  font-size: 0.9em !important;
 }
 
 .selectedTextPrompt button {
-  background-color: var(--ifm-color-primary);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: background-color 0.2s;
+  background-color: var(--ifm-color-primary) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  padding: 8px 12px !important;
+  cursor: pointer !important;
+  font-size: 0.9em !important;
+  transition: background-color 0.2s !important;
 }
 
 .selectedTextPrompt button:hover:not(:disabled) {
-  background-color: var(--ifm-color-primary-dark);
+  background-color: var(--ifm-color-primary-dark) !important;
 }
 
 .selectedTextPrompt button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
 }
 
 .clearSelectedTextButton {
@@ -180,14 +206,84 @@
   background-color: var(--ifm-color-secondary-dark) !important;
 }
 
+/* ================= API Error ================= */
 .apiError {
-  background-color: var(--ifm-color-danger-light);
-  color: var(--ifm-color-danger);
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-  text-align: center;
-  font-weight: bold;
+  background-color: var(--ifm-color-danger-light) !important;
+  color: var(--ifm-color-danger) !important;
+  padding: 10px !important;
+  margin: 10px !important;
+  border-radius: 5px !important;
+  text-align: center !important;
+  font-weight: bold !important;
 }
 
+/* ================= Responsive ================= */
+@media (max-width: 1024px) {
+  .chatWindow {
+    width: 300px !important;
+    height: 450px !important;
+    bottom: 70px !important;
+    right: 15px !important;
+  }
+}
 
+@media (max-width: 768px) {
+  .chatWindow {
+    width: 90% !important;
+    right: 5% !important;
+    bottom: 70px !important;
+    height: 60vh !important;
+  }
+
+  .header h3 {
+    font-size: 1em !important;
+  }
+
+  .inputArea input {
+    font-size: 0.95em !important;
+    padding: 6px 8px !important;
+  }
+
+  .inputArea button {
+    padding: 6px 12px !important;
+  }
+
+  .message {
+    max-width: 90% !important;
+  }
+
+  .selectedTextPrompt {
+    padding: 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatWindow {
+    width: 95% !important;
+    right: 2.5% !important;
+    bottom: 60px !important;
+    height: 55vh !important;
+  }
+
+  .header h3 {
+    font-size: 0.95em !important;
+  }
+
+  .inputArea input {
+    font-size: 0.9em !important;
+    padding: 5px 7px !important;
+  }
+
+  .inputArea button {
+    padding: 5px 10px !important;
+    font-size: 0.9em !important;
+  }
+
+  .message {
+    max-width: 95% !important;
+  }
+
+  .selectedTextPrompt {
+    padding: 8px !important;
+  }
+}
