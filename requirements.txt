@@ -1,8 +1,8 @@
-# Backend requirements
+# Physical-AI-and-Humanoid-Robotics/requirements.txt
 fastapi
 uvicorn
 pydantic
 qdrant-client
 sentence-transformers
-google-genai
+google-genai 
 python-dotenv
