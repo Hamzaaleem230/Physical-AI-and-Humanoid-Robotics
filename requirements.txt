@@ -1,8 +1,8 @@
 # Backend requirements
 fastapi
-uvicorn[standard]
+uvicorn
 pydantic
 qdrant-client
 sentence-transformers
-# Add LLM library here, e.g., openai, google-generativeai, anthropic
+google-genai
 python-dotenv

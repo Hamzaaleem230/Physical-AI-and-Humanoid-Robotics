@@ -171,13 +171,13 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
                 {messages.map((message) => (
                     <div key={message.id} className={`${styles.message} ${styles[message.sender]}`}>
                         {message.text}
-                        {message.streaming && <span className={styles.streamingIndicator}>_</span>}
+                        {message.streaming && <span className={styles.streamingIndicator}>Thinking...</span>}
                     </div>
                 ))}
                 {isLoading && messages[messages.length -1]?.sender !== 'bot' && (
                     <div className={`${styles.message} ${styles.bot}`}>
                         Thinking...
-                        <span className={styles.streamingIndicator}>_</span>
+                        <span className={styles.streamingIndicator}>Thinking...</span>
                     </div>
                 )}
                 <div ref={messagesEndRef} />

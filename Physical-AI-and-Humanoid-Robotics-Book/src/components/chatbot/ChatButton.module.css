@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: var(--ifm-color-primary); /* Docusaurus primary color */
+  background-color: var(--ifm-color-primary);
   color: white;
   border: none;
   border-radius: 50%;
@@ -14,10 +14,31 @@
   align-items: center;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000; /* Ensure it's above other content */
+  z-index: 1000;
   transition: transform 0.2s ease-in-out;
 }
 
 .chatButton:hover {
   transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chatButton {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8em;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatButton {
+    width: 45px;
+    height: 45px;
+    font-size: 1.5em;
+    bottom: 12px;
+    right: 12px;
+  }
 }

@@ -1,24 +1,27 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "Physical-AI-and-Humanoid-Robotics-Book/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "outputDirectory": "build"
+        "installCommand": "npm install",
+        "buildCommand": "npm run build"
       }
     },
     {
-      "src": "backend/app/main.py",
+      "src": "backend/api/index.py",
       "use": "@vercel/python",
       "config": {
-        "maxDuration": 15
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.11"
       }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "backend/app/main.py"
+      "dest": "backend/api/index.py"
     },
     {
       "src": "/(.*)",
