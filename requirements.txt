@@ -1,8 +1,0 @@
-# Physical-AI-and-Humanoid-Robotics/requirements.txt
-fastapi
-uvicorn
-pydantic
-qdrant-client
-sentence-transformers
-google-genai 
-python-dotenv

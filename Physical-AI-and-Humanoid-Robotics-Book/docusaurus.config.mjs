@@ -14,7 +14,7 @@ export default {
   // 🌟 FIX: DEPRECATED 'env' field ko 'customFields' mein move kar diya gaya hai.
   // Access: client-side code mein ab yeh 'siteConfig.customFields.BACKEND_URL' ke zariye accessible hoga.
   customFields: {
-    BACKEND_URL: process.env.BACKEND_URL || '/api',
+    BACKEND_URL: process.env.BACKEND_URL || 'http://localhost:8000',
   },
   // ----------------------------------------------------------------------------------
   
