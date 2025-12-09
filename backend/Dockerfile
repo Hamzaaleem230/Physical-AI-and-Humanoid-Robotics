@@ -1,6 +1,11 @@
 # File: backend/Dockerfile (Updated for UV and FastAPI)
 
 FROM python:3.10-slim-buster
+# 1. Install necessary packages (curl, git) in the lightweight image
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # 1. UV installation (Fast package manager)
 WORKDIR /app
