@@ -6,11 +6,11 @@ WORKDIR /app
 
 # Copy the requirements file and install dependencies
 # We copy all backend/ first, so the pip install can find all files.
-COPY ./backend/requirements.txt .
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the backend application code
-COPY ./backend/app ./app
+COPY app ./app
 
 # Expose the port FastAPI runs on
 EXPOSE 8000
