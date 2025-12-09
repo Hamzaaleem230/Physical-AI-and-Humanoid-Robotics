@@ -1,0 +1,23 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+
+# Logs, temp, DB
+*.log
+*.sqlite3
+*.db
+*.tmp
+
+# OS metadata
+.DS_Store
+
+# Ignore book & frontend (heavy)
+../Physical-AI-and-Humanoid-Robotics-Book/
+
+# Ignore large Qdrant temp folder
+qdrant_storage_temp/
