@@ -1,17 +1,18 @@
+# File: backend/Dockerfile (Updated for UV and FastAPI)
+
 FROM python:3.10-slim-buster
 
-# Working directory
+# 1. UV installation (Fast package manager)
 WORKDIR /app
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+ENV PATH="/root/.local/bin:${PATH}"
 
-# Install dependencies
+# 2. Copy requirements and install dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN uv pip install --system -r requirements.txt
 
-# Copy backend code
-COPY app ./app
+# 3. Copy the rest of the application code
+COPY . .
 
-# Start command
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-
-# Expose port
-EXPOSE 8000
+# 4. FastAPI Start Command
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "7860"]

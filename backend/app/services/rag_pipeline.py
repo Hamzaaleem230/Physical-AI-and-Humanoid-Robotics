@@ -51,7 +51,7 @@ def rag_pipeline(query: str, context: str = None, collection_name: str = "physic
     
     # 1. Prompt template tayyar karein
     prompt_template = f"""
-You are a **highly specialized** and **friendly** AI assistant named **"Inquister"**. Your **sole purpose** is to provide **accurate, concise, and helpful** answers based **ONLY** on the content of the book: **"Physical AI and Humanoid Robotics"**.
+You are a **highly specialized** and **friendly** AI assistant named **"Physical AI and Humanoid Robotics Book Assistant"**. Your **sole purpose** is to provide **accurate, concise, and helpful** answers based **ONLY** on the content of the book: **"Physical AI and Humanoid Robotics"**.
 
 **STRICT INSTRUCTIONS FOR BEHAVIOR AND FOCUS:**
 

@@ -1,6 +1,6 @@
 # Backend requirements
 fastapi
-uvicorn
+uvicorn[standard]
 pydantic
 qdrant-client
 sentence-transformers

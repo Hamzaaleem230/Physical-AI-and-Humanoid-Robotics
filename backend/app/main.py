@@ -80,18 +80,18 @@ async def chat_with_rag(request: Request) -> StreamingResponse:
 
 # Define the path to the Docusaurus docs relative to the project root
 # Assuming 'backend' is at the project root and 'Physical-AI-and-Humanoid-Robotics-Book' is a sibling
-# DOCUSAURUS_DOCS_ROOT = Path(__file__).parent.parent.parent / "Physical-AI-and-Humanoid-Robotics-Book" / "docs"
+DOCUSAURUS_DOCS_ROOT = Path(__file__).parent.parent.parent / "Physical-AI-and-Humanoid-Robotics-Book" / "docs"
 
-# @app.post("/ingest-book", summary="Ingest Docusaurus Book Content")
-# async def ingest_book(background_tasks: BackgroundTasks):
-#     """
-#     Triggers the ingestion pipeline to parse, chunk, embed, and upsert
-#     the Docusaurus book content into Qdrant.
-#     """
-#     if not DOCUSAURUS_DOCS_ROOT.exists():
-#         raise HTTPException(status_code=404, detail=f"Docusaurus docs path not found at {DOCUSAURUS_DOCS_ROOT}")
+@app.post("/ingest-book", summary="Ingest Docusaurus Book Content")
+async def ingest_book(background_tasks: BackgroundTasks):
+    """
+    Triggers the ingestion pipeline to parse, chunk, embed, and upsert
+    the Docusaurus book content into Qdrant.
+    """
+    if not DOCUSAURUS_DOCS_ROOT.exists():
+        raise HTTPException(status_code=404, detail=f"Docusaurus docs path not found at {DOCUSAURUS_DOCS_ROOT}")
     
-#     # Run the ingestion pipeline in a background task to avoid blocking the API
-#     background_tasks.add_task(full_ingestion_pipeline, DOCUSAURUS_DOCS_ROOT)
+    # Run the ingestion pipeline in a background task to avoid blocking the API
+    background_tasks.add_task(full_ingestion_pipeline, DOCUSAURUS_DOCS_ROOT)
     
-#     return {"message": "Ingestion pipeline triggered successfully. Check logs for progress."}
+    return {"message": "Ingestion pipeline triggered successfully. Check logs for progress."}
