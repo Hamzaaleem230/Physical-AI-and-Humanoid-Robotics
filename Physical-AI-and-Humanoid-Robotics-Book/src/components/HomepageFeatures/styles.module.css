@@ -1,0 +1,44 @@
+.features {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between items for desktop */
+  flex-wrap: wrap; /* Wrap on smaller screens */
+  padding: 2rem 0;
+  width: 100%;
+  gap: 1.5rem; /* Add spacing between items when wrapped */
+}
+
+.featureSvg {
+  height: 200px;
+  width: 200px;
+  max-width: 100%; /* Prevent overflow on small screens */
+  object-fit: contain; /* Ensure SVG scales properly */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .featureSvg {
+    height: 180px;
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .features {
+    flex-direction: column; /* Stack vertically on tablets/mobiles */
+    align-items: center;
+    padding: 1.5rem 0;
+  }
+
+  .featureSvg {
+    height: 150px;
+    width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .featureSvg {
+    height: 120px;
+    width: 120px;
+  }
+}
