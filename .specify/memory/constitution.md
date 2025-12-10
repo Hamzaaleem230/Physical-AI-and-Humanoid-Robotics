@@ -1,8 +1,8 @@
 <!-- Sync Impact Report:
-Version change: 1.0.0 → 1.1.0
-Modified principles:
-- [PRINCIPLE_6_NAME] → RAG Chatbot Integration
-Added sections: None
+Version change: 1.1.0 → 1.2.0
+Modified principles: None
+Added sections:
+- Principle VII: User Authentication System
 Removed sections: None
 Templates requiring updates:
 - .specify/templates/plan-template.md: ✅ up-to-date (dynamic)
@@ -41,6 +41,19 @@ Docusaurus book ke andar ek RAG-based intelligent chatbot integrate kiya jayega.
 - **Core Features**: Chatbot sirf book ke content se jawab dega, "answer from selected text" mode ko support karega, responses stream karega, aur session ke andar memory rakhega.
 - **Project Structure**: Saare naye specs `specs/002-rag-chatbot/` directory mein rakhe jayenge. Purane book specs (`specs/001-physical-ai-book/`) ko touch nahi kiya jayega.
 
+### VII. User Authentication System
+A user authentication and profile system will be integrated into the Docusaurus book.
+
+- **Strict Scoping**: All work related to this feature will be strictly contained. Specifications and related documents will reside in `specs/003-auth-system/`. Frontend components will be located in `Physical-AI-and-Humanoid-Robotics-Book/src/auth/`. No modifications shall be made to existing book content or other features (`001-physical-ai-book`, `002-rag-chatbot`).
+- **Technology Stack**:
+    - **Authentication**: The system will use `better-auth` for user management.
+    - **Backend**: The backend will be a FastAPI application hosted on HuggingFace Spaces.
+    - **Database**: User and profile data will be stored in a Neon Serverless Postgres database.
+    - **Frontend**: The authentication UI will be integrated into the existing Docusaurus application deployed on Vercel.
+- **User Profile Data**: The signup process must collect user information, including skill level, hardware availability, robotics experience, OS, and learning mode. This data is intended for future personalization.
+- **UI/UX Integration**: The authentication components (signup/signin) must be accessible from the global navigation bar of the Docusaurus site and must not interfere with the static site generation (`npm run build`).
+- **API Requirements**: The backend will expose standard authentication endpoints (`/signup`, `/signin`, `/signout`, `/me`) and a profile update endpoint (`/profile-update`). CORS must be configured to allow requests from the frontend.
+
 ## Key Standards
 
 - Saare factual claims traceable sources ke sath honge.
@@ -70,4 +83,4 @@ Success criteria:
 - Robotics concepts (AI control, sensing, locomotion, embodiment) academically correct hon.
 - Peer-review check pass ho jae (accuracy, clarity, reproducibility).
 
-**Version**: 1.1.0 | **Ratified**: TODO(RATIFICATION_DATE): Original adoption date is unknown. | **Last Amended**: 2025-12-07
+**Version**: 1.2.0 | **Ratified**: TODO(RATIFICATION_DATE): Original adoption date is unknown. | **Last Amended**: 2025-12-09

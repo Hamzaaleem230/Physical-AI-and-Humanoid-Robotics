@@ -2,7 +2,14 @@
   // This file is not used in compilation. It is here just for a nice editor experience.
   "extends": "@docusaurus/tsconfig",
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    // ⬇️ Nayi 'paths' setting yahan add ki ja rahi hai
+    "paths": {
+      // Docusaurus ke theme aliases ko resolve karne ke liye zaroori hai
+      "@theme/*": ["src/theme/*"],
+      // Optional: Agar aap '@site' ya root level imports use karte hain
+      "@site/*": ["*"] 
+    }
   },
   "exclude": [".docusaurus", "build"]
 }

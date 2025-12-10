@@ -1,0 +1,141 @@
+/* ================================
+   📌 ORIGINAL CSS (As You Provided)
+   ================================ */
+
+.authButton,
+.authLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ifm-navbar-color);
+  margin: 0; 
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease-in;
+}
+
+.authButton:hover,
+.authLink:hover {
+  color: var(--ifm-navbar-link-hover-color);
+  opacity: 0.9;
+  background-color: var(--ifm-hover-background-color, transparent);
+  transform: scale(1.03);
+}
+
+.authContainer {
+  display: flex;
+  align-items: center;
+}
+
+.profileLink {
+  display: flex;
+  align-items: center;
+  padding-right: 0; 
+}
+
+.logoutButton {
+  margin-left: var(--ifm-navbar-item-padding-horizontal);
+  padding-left: var(--ifm-navbar-item-padding-horizontal);
+}
+
+.loadingText {
+  color: var(--ifm-navbar-color);
+  padding: 0 var(--ifm-navbar-item-padding-horizontal);
+}
+
+
+
+/* ======================================
+   📱 RESPONSIVE CSS (Mobile + Tablet)
+   ====================================== */
+
+/* 🔹 Large Tablets (max-width: 1200px) */
+@media (max-width: 1200px) {
+  .authButton,
+  .authLink {
+    font-size: 13px;
+    gap: 5px;
+  }
+
+  .logoutButton {
+    margin-left: 12px;
+    padding-left: 12px;
+  }
+}
+
+/* 🔹 Tablets (max-width: 992px) */
+@media (max-width: 992px) {
+  .authContainer {
+    gap: 10px;
+  }
+
+  .authButton,
+  .authLink {
+    font-size: 12.5px;
+    padding: 4px 6px;
+  }
+}
+
+/* 🔹 Mobile Landscape (max-width: 768px) */
+@media (max-width: 768px) {
+  .authContainer {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .authButton,
+  .authLink {
+    font-size: 12px;
+    gap: 4px;
+  }
+
+  .logoutButton {
+    margin-left: 8px;
+    padding-left: 8px;
+  }
+}
+
+/* 🔹 Mobile Portrait (max-width: 576px) */
+@media (max-width: 576px) {
+  .authContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .authButton,
+  .authLink {
+    width: 100%;
+    justify-content: flex-start;
+    font-size: 12px;
+    padding: 6px 4px;
+  }
+
+  .logoutButton {
+    margin-left: 0;
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .profileLink {
+    width: 100%;
+  }
+}
+
+/* 🔹 Extra Small Mobiles (max-width: 400px) */
+@media (max-width: 400px) {
+  .authButton,
+  .authLink {
+    font-size: 11px;
+    gap: 3px;
+    padding: 6px 2px;
+  }
+
+  .loadingText {
+    font-size: 11px;
+  }
+}

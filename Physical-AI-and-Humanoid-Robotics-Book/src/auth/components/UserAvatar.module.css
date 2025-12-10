@@ -1,0 +1,85 @@
+/* ================================
+   📌 ORIGINAL CSS (As You Provided)
+   ================================ */
+
+.avatarContainer {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--ifm-color-primary);
+    color: var(--ifm-font-color-inverse);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: bold;
+    margin-right: 6px;
+    flex-shrink: 0;
+    border: 2px solid var(--ifm-navbar-background-color);
+    vertical-align: middle;
+}
+
+
+
+/* ================================
+   📱 FULLY RESPONSIVE CSS
+   (Optimized for all devices)
+   ================================ */
+
+/* Tablets & small desktops */
+@media (max-width: 1024px) {
+    .avatarContainer {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+    }
+}
+
+/* Large phones & phablets */
+@media (max-width: 768px) {
+    .avatarContainer {
+        width: 24px;
+        height: 24px;
+        font-size: 11.5px;
+        margin-right: 5px;
+    }
+}
+
+/* Normal mobile phones (500px ↓) */
+@media (max-width: 500px) {
+    .avatarContainer {
+        width: 22px;
+        height: 22px;
+        font-size: 11px;
+        margin-right: 5px;
+    }
+}
+
+/* Small phones (380px ↓) */
+@media (max-width: 380px) {
+    .avatarContainer {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+        margin-right: 4px;
+    }
+}
+
+/* Extra small phones (330px ↓) */
+@media (max-width: 330px) {
+    .avatarContainer {
+        width: 18px;
+        height: 18px;
+        font-size: 9px;
+        margin-right: 3px;
+    }
+}
+
+/* Large desktops (1400px ↑) */
+@media (min-width: 1400px) {
+    .avatarContainer {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+}

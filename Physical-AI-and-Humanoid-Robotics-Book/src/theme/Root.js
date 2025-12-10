@@ -1,31 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import Chatbot from '../components/chatbot/Chatbot'; // Assuming this will be our main chatbot component
+// src/theme/Root.js
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom/client';
+import { AuthProvider } from '../auth/context/AuthProvider';
+import AuthNavbarItem from '../auth/components/AuthNavbarItem';
+import Chatbot from '../components/chatbot/Chatbot';
 
-function Root({children}) {
-  const [selectedText, setSelectedText] = useState('');
+function Root({ children }) {
 
+  // Inject navbar item ONE TIME, safely
   useEffect(() => {
-    const handleMouseUp = () => {
-      const selection = window.getSelection();
-      if (selection && selection.toString().length > 0) {
-        setSelectedText(selection.toString());
-      } else {
-        setSelectedText('');
-      }
-    };
-
-    document.addEventListener('mouseup', handleMouseUp);
-
-    return () => {
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
+    const container = document.getElementById('auth-status');
+    if (container) {
+      const root = ReactDOM.createRoot(container);
+      root.render(
+        <AuthProvider>
+          <AuthNavbarItem />
+        </AuthProvider>
+      );
+    }
   }, []);
 
   return (
-    <>
+    <AuthProvider>
       {children}
-      <Chatbot selectedText={selectedText} setSelectedText={setSelectedText} />
-    </>
+
+      {/* Chatbot always receives one shared provider */}
+      <Chatbot />
+    </AuthProvider>
   );
 }
 

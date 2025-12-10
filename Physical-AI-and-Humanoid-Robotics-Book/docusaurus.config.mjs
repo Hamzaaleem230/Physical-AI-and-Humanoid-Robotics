@@ -1,59 +1,46 @@
 import { themes as prismThemes } from 'prism-react-renderer';
-import path from 'path';
 
-export default {
+/** @type {import('@docusaurus/types').Config} */
+const config = {
   title: 'Physical AI and Humanoid Robotics',
   tagline: 'From First Principles to Real-World Deployment',
-  url: 'https://Hamzaaleem230.github.io',
-  baseUrl: '/', 
-  onBrokenLinks: 'throw', 
-  favicon: 'img/favicon.ico',
-  organizationName: 'Hamzaaleem230',
+  url: 'https://hamzaaleem230.github.io',
+  baseUrl: '/',
   projectName: 'Physical-AI-and-Humanoid-Robotics-Book',
+  organizationName: 'hamzaaleem230',
+  trailingSlash: false,
+  onBrokenLinks: 'warn',
+  onBrokenMarkdownLinks: 'warn',
+  favicon: 'img/favicon.ico',
 
-  // 🌟 FIX: DEPRECATED 'env' field ko 'customFields' mein move kar diya gaya hai.
-  // Access: client-side code mein ab yeh 'siteConfig.customFields.BACKEND_URL' ke zariye accessible hoga.
   customFields: {
-    BACKEND_URL: process.env.BACKEND_URL || 'https://hamzasyed001122-rag-chatbot-backend.hf.space',
+    BACKEND_URL: 'https://hamzasyed001122-rag-chatbot-backend.hf.space',
   },
-  // ----------------------------------------------------------------------------------
-  
+
   presets: [
     [
       'classic',
       {
         docs: {
-          sidebarPath: path.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics',
+          sidebarPath: './sidebars.js',
           routeBasePath: '/',
-        },
-        blog: {
-          showReadingTime: true,
           editUrl:
-            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics',
+            'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book/edit/main/',
         },
+        blog: false,
         theme: {
-          customCss: path.resolve('./src/css/custom.css'),
+          customCss: './src/css/custom.css',
         },
       },
     ],
   ],
 
-  markdown: {
-    hooks: {
-      // onBrokenMarkdownLinks ko yahan 'markdown.hooks' ke andar rakha gaya hai
-      onBrokenMarkdownLinks: 'warn', 
-    },
-  },
-
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
-
     navbar: {
-      title: 'Physical AI and Humanoid Robotics',
+      title: 'Physical AI & Humanoid Robotics',
       logo: {
-        alt: 'My Project Logo',
+        alt: 'Physical AI Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -64,46 +51,42 @@ export default {
           label: 'Book',
         },
         {
-          href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics',
+          type: 'html',
+          value: '<div id="auth-status"></div>',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book',
           label: 'GitHub',
           position: 'right',
         },
       ],
     },
-
     footer: {
       style: 'dark',
       links: [
         {
-          title: 'Docs', 
-          items: [{ label: 'Book', to: '/preface' }],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            { label: 'Discord', href: 'https://discordapp.com/invite/docusaurus' },
-            { label: 'Twitter', href: 'https://twitter.com/docusaurus' },
-          ],
+          title: 'Book',
+          items: [{ label: 'Start Reading', to: '/preface' }],
         },
         {
           title: 'More',
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics/tree/main',
+              href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book',
             },
           ],
         },
       ],
+      copyright: `Copyright © ${new Date().getFullYear()} Hamza Aleem. Built with Docusaurus.`,
     },
-
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+      additionalLanguages: ['bash', 'python', 'cpp', 'matlab', 'json', 'javascript', 'typescript'],
     },
   },
 };
+
+export default config;

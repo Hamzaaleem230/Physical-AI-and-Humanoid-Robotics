@@ -15,9 +15,11 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --ifm-navbar-background-color: var(--ifm-background-color);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* DARK MODE */
 [data-theme='dark'] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
@@ -27,4 +29,127 @@
   --ifm-color-primary-lighter: #32d8b4;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  --ifm-navbar-background-color: var(--ifm-background-color);
+}
+
+/* ------------------------------------------------------
+   🛑 FIX 1: Remove the sticky placeholder black strip
+---------------------------------------------------------*/
+.navbar--fixed-top::before {
+  display: none !important;
+}
+
+/* ------------------------------------------------------
+   🛑 FIX 2: Make navbar background fully stable
+---------------------------------------------------------*/
+.navbar__inner {
+  background: var(--ifm-navbar-background-color) !important;
+  box-shadow: none !important;
+}
+
+/* ------------------------------------------------------
+   🛑 FIX 3: Remove any extra margin/padding above navbar
+---------------------------------------------------------*/
+header.navbar {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Keep navbar compact */
+:root {
+  --ifm-navbar-item-padding-vertical: 0;
+}
+
+/* 🛑 STOP NAVBAR HEIGHT COLLAPSE ON SCROLL */
+.navbar {
+  height: 80px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 9999 !important;
+  background: var(--ifm-navbar-background-color) !important;
+  box-shadow: none !important;
+  bottom: 100px !important;
+}
+
+.navbar--fixed-top {
+  height: 80px !important;
+  background: var(--ifm-navbar-background-color) !important;
+  box-shadow: none !important;
+}
+
+/* Remove auto-added “offset” top space */
+.main-wrapper {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* ======================================================
+   📱 FULL RESPONSIVE CSS (ALL DEVICES)
+======================================================*/
+
+/* Large tablets / Small laptops */
+@media (max-width: 1024px) {
+  .navbar {
+    height: 75px !important;
+  }
+  .navbar__inner {
+    padding: 0 12px !important;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .navbar {
+    height: 70px !important;
+  }
+  .navbar__inner {
+    padding: 0 10px !important;
+  }
+  :root {
+    --ifm-navbar-item-padding-vertical: 2px;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 600px) {
+  .navbar {
+    height: 65px !important;
+  }
+  .navbar__inner {
+    padding: 0 8px !important;
+  }
+  header.navbar {
+    padding-top: 4px !important;
+  }
+}
+
+/* Extra Small Phones */
+@media (max-width: 420px) {
+  .navbar {
+    height: 60px !important;
+  }
+  .navbar__inner {
+    padding: 0 6px !important;
+  }
+}
+
+/* Ultra Small Devices */
+@media (max-width: 350px) {
+  .navbar {
+    height: 55px !important;
+  }
+  .navbar__inner {
+    padding: 0 4px !important;
+  }
+}
+
+/* Ultra Small Devices */
+@media (max-width: 300px) {
+  .navbar {
+    height: 50px !important;
+  }
+  .navbar__inner {
+    padding: 0 2px !important;
+  }
 }

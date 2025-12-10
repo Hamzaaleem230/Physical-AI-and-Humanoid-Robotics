@@ -1,0 +1,298 @@
+/* ================================
+   📌 ORIGINAL CSS (As You Provided)
+   ================================ */
+
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modalContent {
+    background-color: var(--ifm-background-surface-color);
+    color: var(--ifm-font-color-base);
+    width: 460px;
+    max-width: 95%;
+    max-height: 85vh;
+    padding: 28px;
+    border-radius: 12px;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    box-shadow: 0 0 30px rgba(0,0,0,0.45);
+    display: flex;
+    flex-direction: column;
+}
+
+.formScrollArea {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+
+.formScrollArea::-webkit-scrollbar {
+    width: 7px;
+}
+.formScrollArea::-webkit-scrollbar-thumb {
+    background: var(--ifm-color-primary);
+    border-radius: 4px;
+}
+.formScrollArea::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modalContent h2 {
+    color: var(--ifm-color-primary);
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--ifm-color-emphasis-300);
+    padding-bottom: 8px;
+}
+
+.formLayout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.formGroup {
+    margin-bottom: 16px;
+}
+
+.formGroup label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.formGroup input,
+.formGroup select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    background-color: var(--ifm-color-emphasis-100);
+    color: var(--ifm-font-color-base);
+    outline: none;
+    transition: 0.15s border-color;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+    border-color: var(--ifm-color-primary);
+}
+
+.errorText {
+    color: var(--ifm-color-danger);
+    background-color: var(--ifm-color-danger-light);
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: auto;
+    flex-wrap: wrap;
+}
+
+.signupButton {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--ifm-color-primary);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.signupButton:hover {
+    background-color: var(--ifm-color-primary-dark);
+}
+
+.cancelButton {
+    flex: 1;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    background-color: var(--ifm-color-emphasis-300);
+    color: var(--ifm-font-color-base);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cancelButton:hover {
+    background-color: var(--ifm-color-emphasis-400);
+}
+
+.switchLink {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.9rem;
+    padding-bottom: 5px;
+}
+
+.switchLinkButton {
+    background: none;
+    border: none;
+    color: var(--ifm-color-primary);
+    font-weight: 700;
+    padding-left: 5px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.switchLinkButton:hover {
+    color: var(--ifm-color-primary-dark);
+}
+
+
+
+/* ======================================
+   📱 FULLY RESPONSIVE CSS (Optimized)
+   ====================================== */
+
+/* 🔹 Large Tablets (1200px ↓) */
+@media (max-width: 1200px) {
+    .modalContent {
+        width: 70%;
+        padding: 26px;
+    }
+}
+
+/* 🔹 Tablets (1024px ↓) */
+@media (max-width: 1024px) {
+    .modalContent {
+        width: 65%;
+        max-height: 80vh;
+    }
+    .formScrollArea {
+        max-height: 55vh;
+    }
+}
+
+/* 🔹 Small Tablets / Large Phones (768px ↓) */
+@media (max-width: 768px) {
+    .modalContent {
+        width: 88%;
+        padding: 22px;
+        border-radius: 10px;
+    }
+    .modalContent h2 {
+        font-size: 1.45rem;
+    }
+    .buttonContainer {
+        flex-direction: column;
+        gap: 12px;
+    }
+    .signupButton,
+    .cancelButton {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* 🔹 Normal Mobiles (500px ↓) — Your original */
+@media (max-width: 500px) {
+    .modalContent {
+        width: 92%;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .modalContent h2 {
+        font-size: 1.35rem;
+    }
+    .formGroup label {
+        font-size: 0.9rem;
+    }
+    .formGroup input,
+    .formGroup select {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    .switchLink {
+        margin-top: 14px;
+        font-size: 0.85rem;
+    }
+}
+
+/* 🔹 Very Small Phones (380px ↓) — Your original improved */
+@media (max-width: 380px) {
+    .modalContent {
+        width: 95%;
+        padding: 16px;
+    }
+    .modalContent h2 {
+        font-size: 1.25rem;
+    }
+    .formGroup input,
+    .formGroup select {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+    .switchLink {
+        font-size: 0.78rem;
+    }
+}
+
+/* 🔹 Extra Small Phones (330px ↓) — New Improvement */
+@media (max-width: 330px) {
+    .modalContent {
+        width: 97%;
+        padding: 14px;
+    }
+    .formGroup input,
+    .formGroup select {
+        font-size: 0.75rem;
+        padding: 7px;
+    }
+    .buttonContainer {
+        gap: 8px;
+    }
+    .signupButton,
+    .cancelButton {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+}
+
+/* 🔹 Large Desktops (1400px ↑) — Your original polished */
+@media (min-width: 1400px) {
+    .modalContent {
+        width: 520px;
+        padding: 32px;
+    }
+    .modalContent h2 {
+        font-size: 1.9rem;
+    }
+    .formGroup input,
+    .formGroup select {
+        padding: 14px;
+        font-size: 1rem;
+    }
+}
+
+/* 🔹 Extra Large Desktops (1600px ↑) — Your original polished */
+@media (min-width: 1600px) {
+    .modalContent {
+        width: 600px;
+        padding: 36px;
+    }
+    .modalContent h2 {
+        font-size: 2.1rem;
+    }
+    .formGroup input,
+    .formGroup select {
+        padding: 16px;
+        font-size: 1.1rem;
+    }
+}

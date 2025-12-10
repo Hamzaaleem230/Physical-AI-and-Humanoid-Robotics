@@ -212,6 +212,8 @@ See `.specify/memory/constitution.md` for code quality, testing, performance, se
 ## Active Technologies
 - Python 3.10+ (for ROS 2), C# (for Unity, optional) + ROS 2 Humble, Gazebo, Unity, NVIDIA Isaac Sim, Docusaurus (001-physical-ai-book)
 - N/A (Code and documentation will be stored in a Git repository) (001-physical-ai-book)
+- Python 3.10+, TypeScript/JavaScript (React) + FastAPI, `better-auth`, `psycopg2-binary`, React, Docusaurus (003-auth-system)
+- Neon Serverless Postgres (003-auth-system)
 
 ## Recent Changes
 - 001-physical-ai-book: Added Python 3.10+ (for ROS 2), C# (for Unity, optional) + ROS 2 Humble, Gazebo, Unity, NVIDIA Isaac Sim, Docusaurus

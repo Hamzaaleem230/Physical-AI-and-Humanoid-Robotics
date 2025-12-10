@@ -1,0 +1,128 @@
+openapi: 3.0.3
+info:
+  title: Authentication Service API
+  description: API for user authentication, registration, and profile management.
+  version: 1.0.0
+servers:
+  - url: https://huggingface-space-url/
+    description: Production Server
+paths:
+  /auth/signup:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+                full_name:
+                  type: string
+                skill_level:
+                  type: string
+                hardware:
+                  type: string
+                robotics_experience:
+                  type: string
+                os:
+                  type: string
+                learning_mode:
+                  type: string
+              required:
+                - email
+                - password
+                - full_name
+      responses:
+        '201':
+          description: User created successfully
+        '400':
+          description: Invalid input or email already exists
+  /auth/signin:
+    post:
+      summary: Sign in a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: User signed in successfully
+        '401':
+          description: Unauthorized, invalid credentials
+  /auth/signout:
+    post:
+      summary: Sign out the current user
+      responses:
+        '200':
+          description: User signed out successfully
+  /auth/me:
+    get:
+      summary: Get the current authenticated user's profile
+      security:
+        - cookieAuth: []
+      responses:
+        '200':
+          description: User profile returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '401':
+          description: Unauthorized
+  /auth/profile-update:
+    post:
+      summary: Update the current user's profile
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfile'
+      responses:
+        '200':
+          description: Profile updated successfully
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    UserProfile:
+      type: object
+      properties:
+        full_name:
+          type: string
+        skill_level:
+          type: string
+        hardware:
+          type: string
+        robotics_experience:
+          type: string
+        os:
+          type: string
+        learning_mode:
+          type: string
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: session # Name of the cookie used by better-auth

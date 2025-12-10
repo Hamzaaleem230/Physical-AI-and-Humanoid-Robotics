@@ -21,3 +21,60 @@
   align-items: center;
   justify-content: center;
 }
+
+/* ======================================================
+   📱 FULL RESPONSIVE CSS (ALL DEVICES)
+======================================================*/
+
+/* Large Tablets / Small Laptops */
+@media (max-width: 1024px) {
+  .heroBanner {
+    padding: 3rem 1.5rem;
+  }
+  .buttons {
+    gap: 0.8rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .heroBanner {
+    padding: 2.5rem 1rem;
+  }
+  .buttons {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 600px) {
+  .heroBanner {
+    padding: 2rem 0.8rem;
+  }
+  .buttons {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+}
+
+/* Extra Small Phones */
+@media (max-width: 420px) {
+  .heroBanner {
+    padding: 1.6rem 0.6rem;
+  }
+  .buttons {
+    width: 100%;
+  }
+}
+
+/* Ultra Small Devices */
+@media (max-width: 350px) {
+  .heroBanner {
+    padding: 1.4rem 0.4rem;
+  }
+  .buttons {
+    width: 100%;
+    gap: 1.4rem;
+  }
+}

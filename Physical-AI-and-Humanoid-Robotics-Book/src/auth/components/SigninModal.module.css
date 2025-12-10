@@ -1,0 +1,228 @@
+/* ================================
+   📌 ORIGINAL CSS (As You Provided)
+   ================================ */
+
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: var(--ifm-background-surface-color);
+    color: var(--ifm-font-color-base);
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: var(--ifm-shadow-lg);
+    border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.modalContent h2 {
+    color: var(--ifm-color-primary);
+    margin-top: 0;
+    border-bottom: 1px solid var(--ifm-color-emphasis-300);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.formGroup {
+    margin-bottom: 15px;
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.formGroup input,
+.formGroup select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--ifm-color-emphasis-300);
+    border-radius: 4px;
+    background-color: var(--ifm-color-emphasis-100); 
+    color: var(--ifm-font-color-base);
+}
+
+.errorText {
+    color: var(--ifm-color-danger);
+    background-color: var(--ifm-color-danger-light);
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.signinButton {
+    background-color: var(--ifm-color-primary);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--ifm-border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    flex-grow: 1;
+    transition: background-color 0.2s;
+}
+
+.signinButton:hover {
+    background-color: var(--ifm-color-primary-dark);
+}
+
+.cancelButton {
+    background-color: var(--ifm-color-emphasis-300);
+    color: var(--ifm-font-color-base);
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--ifm-border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    flex-grow: 1;
+    transition: background-color 0.2s;
+}
+
+.cancelButton:hover {
+    background-color: var(--ifm-color-emphasis-400);
+}
+
+.switchLink {
+    text-align: center;
+    margin-top: 15px;
+    font-size: small;
+}
+
+.switchLinkButton {
+    background: none;
+    border: none;
+    color: var(--ifm-color-primary);
+    cursor: pointer;
+    padding: 0 5px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+
+
+/* ======================================
+   📱 RESPONSIVE CSS (Mobile + Tablet)
+   ====================================== */
+
+/* 🔹 Large Tablets (max-width: 1200px) */
+@media (max-width: 1200px) {
+    .modalContent {
+        padding: 26px;
+        max-width: 380px;
+    }
+}
+
+/* 🔹 Tablets (max-width: 992px) */
+@media (max-width: 992px) {
+    .modalContent {
+        max-width: 360px;
+        padding: 24px;
+    }
+
+    .signinButton, 
+    .cancelButton {
+        padding: 9px 18px;
+    }
+}
+
+/* 🔹 Mobiles Landscape (max-width: 768px) */
+@media (max-width: 768px) {
+    .modalContent {
+        width: 92%;
+        padding: 22px;
+        max-width: 340px;
+    }
+    
+    .modalContent h2 {
+        font-size: 18px;
+        padding-bottom: 12px;
+        margin-bottom: 18px;
+    }
+
+    .formGroup input,
+    .formGroup select {
+        padding: 9px;
+    }
+
+    .buttonContainer {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .signinButton,
+    .cancelButton {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+/* 🔹 Mobiles Portrait (max-width: 576px) */
+@media (max-width: 576px) {
+    .modalContent {
+        width: 94%;
+        padding: 18px;
+        max-width: 300px;
+    }
+
+    .modalContent h2 {
+        font-size: 17px;
+    }
+
+    .formGroup label {
+        font-size: 14px;
+    }
+
+    .formGroup input,
+    .formGroup select {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .switchLink {
+        font-size: 12px;
+    }
+}
+
+/* 🔹 Extra Small Mobiles (max-width: 400px) */
+@media (max-width: 400px) {
+    .modalContent {
+        width: 96%;
+        padding: 15px;
+        max-width: 260px;
+        border-radius: 6px;
+    }
+
+    .modalContent h2 {
+        font-size: 16px;
+    }
+
+    .signinButton,
+    .cancelButton {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .switchLink {
+        font-size: 11px;
+    }
+}
