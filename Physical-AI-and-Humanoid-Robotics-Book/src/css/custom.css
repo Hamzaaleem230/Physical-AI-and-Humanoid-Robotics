@@ -352,3 +352,15 @@ header.navbar {
     background: inherit !important;
   }
 }
+
+/* =============== Navbar Background Fix =============== */
+
+/* Light mode navbar background */
+.navbar {
+  background-color: #ffffff !important;
+}
+
+/* Dark mode (Docusaurus uses a data-theme attribute) */
+html[data-theme='dark'] .navbar {
+  background-color: #1b1b1d !important;
+}
