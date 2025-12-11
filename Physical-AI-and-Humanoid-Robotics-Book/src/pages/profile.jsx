@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Layout from '@theme/Layout';
 import { useAuth } from '../auth/context/AuthProvider';
 import styles from './Profile.module.css';
 
 function ProfilePage() {
   const { user, isAuthenticated, isLoading } = useAuth();
-  
-
-  const [profileData, setProfileData] = useState(user); 
 
   if (isLoading) {
     return (
@@ -29,7 +26,6 @@ function ProfilePage() {
     );
   }
 
-  // All fields are available for display
   const displayData = {
     'Full Name': user.full_name,
     'Email': user.email,
@@ -45,14 +41,13 @@ function ProfilePage() {
       <div className={styles.profileContainer}>
         <div className={styles.profileCard}>
           <h1>Welcome, {user.full_name.split(' ')[0]}!</h1>
-          
+
           {Object.entries(displayData).map(([label, value]) => (
             <div key={label} className={styles.detailRow}>
               <span className={styles.label}>{label}:</span>
               <span className={styles.value}>{value}</span>
             </div>
           ))}
-          
         </div>
       </div>
     </Layout>

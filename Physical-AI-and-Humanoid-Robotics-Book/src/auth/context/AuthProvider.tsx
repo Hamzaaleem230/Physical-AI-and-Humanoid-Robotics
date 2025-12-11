@@ -3,9 +3,8 @@ import {
   getCurrentUser,
   signout as apiSignout,
   signin as apiSignin,
-  signup as apiSignup,
 } from '../services/api';
-import { AuthUserProfile, UserCreate, UserLogin } from '../types';
+import { AuthUserProfile } from '../types';
 
 // Import Modals for rendering
 import SigninModal from '../components/SigninModal';
@@ -18,7 +17,6 @@ export interface AuthContextType {
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
-  // Modal State and Control functions
   openModal: (type: 'login' | 'signup') => void;
   closeModal: () => void;
 }
@@ -50,6 +48,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setIsLoading(false);
       }
     };
+
     loadUser();
   }, []);
 
@@ -57,9 +56,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setIsLoading(true);
     try {
       await apiSignin({ email, password });
-      const currentUser = await getCurrentUser();
-      setUser(currentUser);
-      closeModal(); // Model close when login success
+
+      const freshUser = await getCurrentUser();  // FIX: always fetch fresh user
+      setUser(freshUser);
+
+      closeModal();
     } catch (error) {
       console.error('Login failed:', error);
       setUser(null);
@@ -67,16 +68,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
-  }; // openModal function
+  };
 
   const openModal = (type: 'login' | 'signup') => {
-    closeModal(); // Existing modal band karein
-    if (type === 'login') {
-      setIsSigninOpen(true);
-    } else if (type === 'signup') {
-      setIsSignupOpen(true);
-    }
-  }; // closeModal function
+    closeModal();
+    if (type === 'login') setIsSigninOpen(true);
+    if (type === 'signup') setIsSignupOpen(true);
+  };
 
   const closeModal = () => {
     setIsSigninOpen(false);
@@ -102,17 +100,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     isLoading,
     login,
     logout,
-    // Add to context
     openModal,
     closeModal,
   };
 
   return (
     <AuthContext.Provider value={contextValue}>
-            {children}
-      {/* New Models Render */}
-            <SigninModal isOpen={isSigninOpen} onClose={closeModal} />
-            <SignupModal isOpen={isSignupOpen} onClose={closeModal} />   {' '}
+      {children}
+
+      {/* AUTH MODALS */}
+      <SigninModal isOpen={isSigninOpen} onClose={closeModal} />
+      <SignupModal isOpen={isSignupOpen} onClose={closeModal} />
     </AuthContext.Provider>
   );
 };
