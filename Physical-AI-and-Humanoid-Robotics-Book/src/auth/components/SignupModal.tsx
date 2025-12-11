@@ -102,7 +102,8 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
               <select
                 value={skillLevel}
                 onChange={(e) => setSkillLevel(e.target.value)}
-                disabled={isSubmitting} required
+                disabled={isSubmitting}
+                required
               >
                 <option value="">Select...</option>
                 <option value="Beginner">Beginner</option>
@@ -118,7 +119,8 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
                 placeholder="e.g., GPU, Jetson, Raspberry Pi"
                 value={hardware}
                 onChange={(e) => setHardware(e.target.value)}
-                disabled={isSubmitting} required
+                disabled={isSubmitting}
+                required
               />
             </div>
 
@@ -128,7 +130,8 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
                 type="text"
                 value={roboticsExperience}
                 onChange={(e) => setRoboticsExperience(e.target.value)}
-                disabled={isSubmitting} required
+                disabled={isSubmitting}
+                required
               />
             </div>
 
@@ -147,7 +150,8 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
               <select
                 value={learningMode}
                 onChange={(e) => setLearningMode(e.target.value)}
-                disabled={isSubmitting} required
+                disabled={isSubmitting}
+                required
               >
                 <option value="">Select...</option>
                 <option value="Video">Video</option>
@@ -172,14 +176,13 @@ const SignupModal: React.FC<SignupModalProps> = ({ isOpen, onClose }) => {
               Cancel
             </button>
           </div>
+          <div className={styles.switchLink}>
+            Already have an account?
+            <button type="button" onClick={switchToLogin} className={styles.switchLinkButton}>
+              Log In
+            </button>
+          </div>
         </form>
-
-        <div className={styles.switchLink}>
-          Already have an account?
-          <button type="button" onClick={switchToLogin} className={styles.switchLinkButton}>
-            Log In
-          </button>
-        </div>
       </div>
     </div>
   );

@@ -1,0 +1,89 @@
+.noticeModal {
+  width: 400px; /* SAME as sign-in modal */
+  background: #1f1f1f;
+  padding: 16px 18px;
+  border-radius: 10px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.45);
+  border: 1px solid #2f2f2f;
+  color: #eee;
+  position: fixed;
+  top: 10px; /* ABOVE sign-in modal */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+  overflow: hidden;
+  height: 70px; /* collapsed height (2 lines) */
+  transition: height 0.3s ease, padding-bottom 0.3s ease;
+  border: 2px solid #00e6a8;
+
+}
+
+.expanded {
+  height: auto;
+  padding-bottom: 25px;
+  border: 2px solid #00e6a8;
+}
+
+.noticeText {
+  font-size: 14px;
+  line-height: 1.45;
+  white-space: pre-line;
+  margin: 0;
+}
+
+.toggleBtn {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  cursor: pointer;
+  color: #00e6a8;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.toggleBtn:hover {
+  text-decoration: underline;
+}
+
+
+/* ---------------------- */
+/* 📱 MOBILE (extra small) */
+/* ---------------------- */
+@media (max-width: 380px) {
+  .noticeModal {
+    width: 92%;
+    padding: 14px 14px;
+    top: 8px;
+  }
+
+  .noticeText {
+    font-size: 13px;
+    line-height: 1.38;
+  }
+
+  .toggleBtn {
+    font-size: 12px;
+    bottom: 8px;
+    right: 10px;
+  }
+}
+
+/* ---------------------- */
+/* 📱 MOBILE (400–600px)   */
+/* ---------------------- */
+@media (max-width: 600px) {
+  .noticeModal {
+    width: 90%;
+    max-width: 400px;
+  }
+}
+
+/* ---------------------- */
+/* 💻 LARGE SCREENS (1024+) */
+/* ---------------------- */
+@media (min-width: 1024px) {
+  .noticeModal {
+    top: 20px; /* more breathing room */
+    max-width: 450px;
+  }
+}
