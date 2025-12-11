@@ -153,3 +153,121 @@ header.navbar {
     padding: 0 2px !important;
   }
 }
+
+/* Desktop version visible, Mobile hidden */
+.navbarTitleDesktop {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.navbarTitleMobile {
+  display: none !important;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* 🌙 Mobile screens (<768px) */
+@media (max-width: 768px) {
+  .navbarTitleDesktop {
+    display: none !important;
+  }
+
+  .navbarTitleMobile {
+    display: inline-block !important;
+  }
+}
+
+/* --- Desktop title visible --- */
+.navTitleDesktop {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+/* --- Mobile title hidden by default --- */
+.navTitleMobile {
+  display: none;
+  font-size: 17px;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+/* --- Auth Button (Login/Signup) ko mobile me show karna --- */
+#auth-status {
+  display: inline-block;
+}
+
+/* --- Mobile navbar fix (<768px) --- */
+@media (max-width: 768px) {
+  .navTitleDesktop {
+    display: none !important;
+  }
+
+  .navTitleMobile {
+    display: inline-block !important;
+  }
+
+  /* Navbar items ko compress karo */
+  .customNavTitle {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Login/Signup always visible right side */
+  #auth-status {
+    display: inline-block !important;
+  }
+}
+
+/* Desktop title visible */
+.navbar__title {
+  display: inline-block;
+}
+
+/* Mobile short title next to logo */
+.navbar__logo::after {
+  content: '';
+  margin-left: 0;
+  font-size: 0;
+  font-weight: 0;
+}
+
+/* Mobile behavior */
+@media (max-width: 768px) {
+  /* Hide big desktop title */
+  .navbar__title {
+    display: none !important;
+  }
+
+  /* Add short title next to logo on mobile */
+  .navbar__logo::after {
+    content: 'Physical AI Book';
+    margin-left: 10px;
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    position: relative;
+    top: -10px; /* 👈 vertical alignment fix */
+  }
+}
+
+/* Remove title from mobile drawer */
+.menu__link.navbar__title {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .navbar__logo:hover::after {
+    color: #00e6a8; /* SAME as Explore button accent */
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar__logo:hover {
+    background: #0fbfa6;
+    border-radius: 6px;
+    padding: 4px 6px;
+  }
+}
