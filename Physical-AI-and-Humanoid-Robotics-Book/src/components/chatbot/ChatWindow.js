@@ -1,137 +1,122 @@
-import React, { useState, useRef, useEffect } from 'react';
-import styles from './ChatWindow.module.css';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import React, { useState, useRef, useEffect } from "react";
+import styles from "./ChatWindow.module.css";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
-const SESSION_STORAGE_KEY = 'chatbot_messages';
+const SESSION_STORAGE_KEY = "chatbot_messages";
 
 function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
-  // Context Hook ka istemaal karke configuration se URL hasil karna
   const { siteConfig } = useDocusaurusContext();
   const BACKEND_URL = siteConfig.customFields.BACKEND_URL;
 
-  // FIX: Lazy initialization function ka use
-  // Yeh function sirf client-side (browser) mein chalta hai, server (SSG) mein nahi.
   const [messages, setMessages] = useState(() => {
-    // SSG/Server side check: Agar window ya sessionStorage available nahi hai, toh default value return karo.
-    if (typeof window === 'undefined' || typeof window.sessionStorage === 'undefined') {
-      return [{ id: 1, text: 'Welcome! How can I help you today?', sender: 'bot' }];
+    if (typeof window === "undefined" || typeof window.sessionStorage === "undefined") {
+      return [{ id: 1, text: "Welcome! How can I help you today?", sender: "bot" }];
     }
 
-    // Client side (Browser) logic:
     try {
-      const savedMessages = window.sessionStorage.getItem(SESSION_STORAGE_KEY);
-      return savedMessages
-        ? JSON.parse(savedMessages)
-        : [{ id: 1, text: 'Welcome! How can I help you today?', sender: 'bot' }];
+      const saved = window.sessionStorage.getItem(SESSION_STORAGE_KEY);
+      return saved
+        ? JSON.parse(saved)
+        : [{ id: 1, text: "Welcome! How can I help you today?", sender: "bot" }];
     } catch (error) {
-      console.error('Error reading sessionStorage:', error);
-      return [{ id: 1, text: 'Welcome! How can I help you today?', sender: 'bot' }];
+      return [{ id: 1, text: "Welcome! How can I help you today?", sender: "bot" }];
     }
   });
 
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    const handleSelection = () => {
-      const text = window.getSelection().toString().trim();
-      if (text.length > 5) {
-        setSelectedText(text);
-      }
-    };
-
-    document.addEventListener('mouseup', handleSelection);
-    document.addEventListener('keyup', handleSelection);
-
-    return () => {
-      document.removeEventListener('mouseup', handleSelection);
-      document.removeEventListener('keyup', handleSelection);
-    };
-  }, []);
-
-  // FIX: useEffect mein bhi sessionStorage access se pehle window check zaroori hai
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
+    if (typeof window !== "undefined") {
       window.sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(messages));
     }
   }, [messages]);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
+  // ⭐⭐⭐ AUTO EXPLAIN USE EFFECT — INSERTED EXACTLY HERE ⭐⭐⭐
   useEffect(() => {
-    if (!isOpen) {
-      setApiError(null);
-    }
+    const handler = (event) => {
+      const text = event.detail;
+
+      if (!text || text.trim().length === 0) return;
+
+      // Add user message
+      const userMessage = {
+        id: messages.length + 1,
+        text: `Explain: "${text}"`,
+        sender: "user",
+      };
+      setMessages((prev) => [...prev, userMessage]);
+
+      // Auto-send to backend
+      sendQueryToBackend(`Explain: "${text}"`, text);
+
+      // Clear selection
+      setSelectedText("");
+    };
+
+    window.addEventListener("AUTO_EXPLAIN_SELECTED_TEXT", handler);
+    return () => window.removeEventListener("AUTO_EXPLAIN_SELECTED_TEXT", handler);
+  }, [messages, setSelectedText]);
+  // ⭐⭐⭐ END OF AUTO EXPLAIN USE EFFECT ⭐⭐⭐
+
+  useEffect(() => {
+    if (!isOpen) setApiError(null);
   }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen && selectedText) {
-      // Logic for handling selected text when the window opens
-    }
-  }, [isOpen, selectedText]);
-
-  if (!isOpen) {
-    return null;
-  }
-
-  const handleInputChange = (e) => {
-    setInput(e.target.value);
-  };
 
   const sendQueryToBackend = async (userMessageText, context = null) => {
     setIsLoading(true);
     setApiError(null);
+
     const botResponseId = messages.length + 2;
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { id: botResponseId, text: '', sender: 'bot', streaming: true },
+    setMessages((prev) => [
+      ...prev,
+      { id: botResponseId, text: "", sender: "bot", streaming: true },
     ]);
 
     try {
       const response = await fetch(`${BACKEND_URL}/chat`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: userMessageText, context: context }),
+        body: JSON.stringify({ message: userMessageText, context }),
       });
 
       if (!response.ok) {
-        let errorMessage = `Backend API error: ${response.status}`;
+        let errorMessage = `Backend error: ${response.status}`;
         try {
-          const errorData = await response.json();
-          errorMessage = errorData.detail || errorMessage;
-        } catch {
-          // If response is not JSON, use default message
-        }
+          const errorJSON = await response.json();
+          errorMessage = errorJSON.detail || errorMessage;
+        } catch {}
         throw new Error(errorMessage);
       }
 
       const fullResponse = await response.text();
 
-      setMessages((prevMessages) =>
-        prevMessages.map((msg) =>
-          msg.id === botResponseId ? { ...msg, text: fullResponse, streaming: false } : msg
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === botResponseId
+            ? { ...msg, text: fullResponse, streaming: false }
+            : msg
         )
       );
     } catch (error) {
-      console.error('Error fetching from backend:', error);
-      setApiError(
-        `Could not connect to backend. Please ensure the backend is running. (${error.message})`
-      );
-      setMessages((prevMessages) =>
-        prevMessages.map((msg) =>
+      setApiError(error.message);
+      setMessages((prev) =>
+        prev.map((msg) =>
           msg.id === botResponseId
-            ? { ...msg, text: `Error: ${error.message}`, streaming: false }
+            ? { ...msg, text: "Error: " + error.message, streaming: false }
             : msg
         )
       );
@@ -142,32 +127,25 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
 
   const handleSendMessage = () => {
     if (input.trim() && !isLoading) {
-      const userMessage = { id: messages.length + 1, text: input, sender: 'user' };
-      setMessages((prevMessages) => [...prevMessages, userMessage]);
-      setInput('');
-      sendQueryToBackend(userMessage.text);
-    }
-  };
-
-  const handleExplainSelectedText = () => {
-    if (selectedText.trim() && !isLoading) {
       const userMessage = {
         id: messages.length + 1,
-        text: `Explain: "${selectedText}"`,
-        sender: 'user',
+        text: input,
+        sender: "user",
       };
-      setMessages((prevMessages) => [...prevMessages, userMessage]);
-      setInput('');
-      sendQueryToBackend(`Explain: "${selectedText}"`, selectedText);
-      setSelectedText('');
+
+      setMessages((prev) => [...prev, userMessage]);
+      sendQueryToBackend(input);
+      setInput("");
     }
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && input.trim() && !isLoading) {
+    if (e.key === "Enter" && input.trim() && !isLoading) {
       handleSendMessage();
     }
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className={styles.chatWindow}>
@@ -177,21 +155,30 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
           X
         </button>
       </div>
+
       <div className={styles.messages}>
         {apiError && (
           <div className={styles.apiError}>
             <p>{apiError}</p>
           </div>
         )}
+
         {selectedText && (
           <div className={styles.selectedTextPrompt}>
             <p>Selected text:</p>
             <blockquote>{selectedText}</blockquote>
-            <button onClick={handleExplainSelectedText} disabled={isLoading}>
+
+            <button
+              onClick={() =>
+                sendQueryToBackend(`Explain: "${selectedText}"`, selectedText)
+              }
+              disabled={isLoading}
+            >
               Explain Selected Text
             </button>
+
             <button
-              onClick={() => setSelectedText('')}
+              onClick={() => setSelectedText("")}
               disabled={isLoading}
               className={styles.clearSelectedTextButton}
             >
@@ -199,28 +186,27 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
             </button>
           </div>
         )}
-        {messages.map((message) => (
-          <div key={message.id} className={`${styles.message} ${styles[message.sender]}`}>
-            {message.text}
-            {message.streaming && <span className={styles.streamingIndicator}>Thinking...</span>}
+
+        {messages.map((msg) => (
+          <div key={msg.id} className={`${styles.message} ${styles[msg.sender]}`}>
+            {msg.text}
+            {msg.streaming && (
+              <span className={styles.streamingIndicator}>Thinking...</span>
+            )}
           </div>
         ))}
-        {isLoading && messages[messages.length - 1]?.sender !== 'bot' && (
-          <div className={`${styles.message} ${styles.bot}`}>
-            Thinking...
-            <span className={styles.streamingIndicator}>Thinking...</span>
-          </div>
-        )}
-        <div ref={messagesEndRef} />
+
+        <div ref={messagesEndRef}></div>
       </div>
+
       <div className={styles.inputArea}>
         <input
           type="text"
           placeholder="Type your message..."
           value={input}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress}
+          onChange={(e) => setInput(e.target.value)}
           disabled={isLoading}
+          onKeyPress={handleKeyPress}
         />
         <button onClick={handleSendMessage} disabled={!input.trim() || isLoading}>
           Send

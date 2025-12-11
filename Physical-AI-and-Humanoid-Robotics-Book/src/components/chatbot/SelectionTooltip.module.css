@@ -1,0 +1,70 @@
+/* =====================
+   Tooltip Main Container
+===================== */
+.tooltip {
+  position: absolute;
+  transform: translate(-50%, -90%) scale(0.6);
+  background: #1f1f1f;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  z-index: 9999;
+
+  /* Clean animation */
+  opacity: 0;
+  animation: fadePop 0.2s ease-out forwards;
+
+  /* Nice shadow */
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+/* Hover effect */
+.tooltip:hover {
+  background: #00e6a8;
+  transform: translate(-50%, -120%) scale(1);
+}
+
+/* Emoji rotate animation on hover */
+.tooltip:hover .emoji {
+  transform: rotate(360deg);
+}
+
+/* Emoji style */
+.emoji {
+  display: inline-block;
+  transition: transform 0.4s ease;
+}
+
+/* Fade + Pop animation */
+@keyframes fadePop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -120%) scale(0.6);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -120%) scale(1);
+  }
+}
+
+/* Light Mode */
+html[data-theme='light'] .tooltip {
+  background: #ffffff;
+  color: #000;
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Tooltip hover in light mode */
+html[data-theme='light'] .tooltip:hover {
+  background: #00e6a8;
+  color: white;
+}

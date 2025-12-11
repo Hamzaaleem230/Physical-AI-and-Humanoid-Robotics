@@ -6,8 +6,9 @@ import AuthNavbarItem from '../auth/components/AuthNavbarItem';
 import Chatbot from '../components/chatbot/Chatbot';
 
 function Root({ children }) {
-  
+
   const [selectedText, setSelectedText] = useState('');
+  
   // Inject navbar item ONE TIME, safely
   useEffect(() => {
     const container = document.getElementById('auth-status');
