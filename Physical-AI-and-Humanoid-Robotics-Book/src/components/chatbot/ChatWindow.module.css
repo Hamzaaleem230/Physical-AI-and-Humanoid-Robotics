@@ -287,3 +287,32 @@
     padding: 8px !important;
   }
 }
+
+/* ================== FIX CHATBOT TRANSPARENCY (LIGHT + DARK) ================== */
+
+/* Light Mode */
+:root {
+  --chat-bg-color: #ffffff;
+}
+
+/* Dark Mode */
+html[data-theme='dark'] {
+  --chat-bg-color: #1f1f1f; /* Or your preferred dark bg */
+}
+
+/* Apply the BG */
+.chatWindow {
+  background-color: var(--chat-bg-color) !important;
+}
+
+.messages {
+  background-color: var(--chat-bg-color) !important;
+}
+
+.inputArea {
+  background-color: var(--chat-bg-color) !important;
+}
+
+.selectedTextPrompt {
+  background-color: var(--chat-bg-color) !important;
+}
