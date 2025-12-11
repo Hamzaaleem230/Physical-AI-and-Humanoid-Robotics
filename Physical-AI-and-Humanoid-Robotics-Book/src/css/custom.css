@@ -242,15 +242,28 @@ header.navbar {
   }
 
   /* Add short title next to logo on mobile */
+  /* Mobile title next to logo */
+@media (max-width: 768px) {
   .navbar__logo::after {
-    content: 'Physical AI Book';
+    content: "Physical AI Book";
     margin-left: 10px;
     font-size: 17px;
-    font-weight: 600;
-    color: black;
+    font-weight: 600 !important; /* ALWAYS bold */
     position: relative;
-    top: -10px; /* 👈 vertical alignment fix */
+    top: -10px; /* vertical alignment */
   }
+
+  /* Light mode text color */
+  [data-theme='light'] .navbar__logo::after {
+    color: #000 !important;  /* black */
+  }
+
+  /* Dark mode text color */
+  [data-theme='dark'] .navbar__logo::after {
+    color: #E3E3E3 !important; /* light gray */
+  }
+}
+
 }
 
 /* Remove title from mobile drawer */
