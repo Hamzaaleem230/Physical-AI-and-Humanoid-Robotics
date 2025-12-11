@@ -1,11 +1,11 @@
 .noticeModal {
   width: 400px; /* SAME as sign-in modal */
-  background: #1f1f1f;
+  background: #ffffff !important;
   padding: 16px 18px;
   border-radius: 10px;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.45);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.45);
   border: 1px solid #2f2f2f;
-  color: #eee;
+  color: #1a1a1a !important;
   position: fixed;
   top: 10px; /* ABOVE sign-in modal */
   left: 50%;
@@ -14,8 +14,14 @@
   overflow: hidden;
   height: 70px; /* collapsed height (2 lines) */
   transition: height 0.3s ease, padding-bottom 0.3s ease;
-  border: 2px solid #00e6a8;
+  border: 1px solid rgba(0, 0, 0, 0.15) !important;
+}
 
+/* DARK MODE */
+html[data-theme='dark'] .noticeModal {
+  background: #1f1f1f !important; /* dark gray */
+  color: #eaeaea !important; /* light text */
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
 .expanded {
@@ -36,7 +42,7 @@
   bottom: 10px;
   right: 15px;
   cursor: pointer;
-  color: #00e6a8;
+  color: #007bff !important;
   font-size: 13px;
   font-weight: bold;
 }
@@ -44,7 +50,6 @@
 .toggleBtn:hover {
   text-decoration: underline;
 }
-
 
 /* ---------------------- */
 /* 📱 MOBILE (extra small) */
