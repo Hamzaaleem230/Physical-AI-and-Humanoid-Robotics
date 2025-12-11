@@ -364,3 +364,27 @@ header.navbar {
 html[data-theme='dark'] .navbar {
   background-color: #1b1b1d !important;
 }
+
+/* REMOVE ACTIVE & HOVER BACKGROUND FROM LOGO + MOBILE TITLE */
+.navbar__brand,
+.navbar__brand:hover,
+.navbar__brand:active,
+.navbar__brand:focus,
+.navbar__brand--active {
+  background: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+}
+
+
+/* REMOVE MOBILE TITLE HOVER BACKGROUND TOO */
+@media (max-width: 768px) {
+  .navbar__logo:hover,
+  .navbar__logo:active,
+  .navbar__logo:focus {
+    background: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+  }
+}
