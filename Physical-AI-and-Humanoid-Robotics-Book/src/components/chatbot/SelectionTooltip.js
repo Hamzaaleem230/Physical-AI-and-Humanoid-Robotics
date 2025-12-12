@@ -8,8 +8,16 @@ export default function SelectionTooltip({ visible, position, onClick }) {
   return (
     <div
       className={styles.tooltip}
-      style={{ top: position.top, left: position.left }}
-      onClick={onClick}
+      style={{
+        top: position.top,
+        left: position.left,
+        position: "absolute",
+        pointerEvents: "auto",        // IMPORTANT FIX
+        userSelect: "none",           // Prevent accidental text drag
+        zIndex: 999999,               // Stronger layer
+      }}
+      onMouseDown={(e) => e.stopPropagation()}  // Prevents selection collapse
+      onClick={onClick}                          // Triggers chatbot + auto-send
     >
       <span className={styles.emoji}>🤖</span>
       Ask AI
