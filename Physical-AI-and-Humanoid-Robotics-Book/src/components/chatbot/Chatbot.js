@@ -16,14 +16,14 @@ function Chatbot({ selectedText, setSelectedText }) {
 
   // ✅ Desktop + Mobile text selection handler
   useEffect(() => {
-    const handleSelection = () => {
+    // 🔹 SHOW tooltip only when selection is COMPLETE
+    const handleSelectionEnd = () => {
       try {
         const selection = window.getSelection();
         if (!selection) return;
 
         const text = selection.toString().trim();
 
-        // Hide tooltip if no valid selection
         if (!text || text.length < 3) {
           setTooltipVisible(false);
           setSelectedText('');
@@ -33,8 +33,9 @@ function Chatbot({ selectedText, setSelectedText }) {
         const range = selection.getRangeAt(0);
         const rect = range.getBoundingClientRect();
 
+        const isMobile = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
         setSelectedText(text);
-        const isMobile = isMobileDevice();
 
         setTooltipPos({
           top: isMobile
@@ -50,14 +51,30 @@ function Chatbot({ selectedText, setSelectedText }) {
       }
     };
 
+    // 🔹 HIDE tooltip instantly when selection changes / clears
+    const handleSelectionChange = () => {
+      const selection = window.getSelection();
+      if (!selection) return;
+
+      const text = selection.toString().trim();
+
+      if (!text || text.length < 3) {
+        setTooltipVisible(false);
+        setSelectedText('');
+      }
+    };
+
     // Desktop
-    document.addEventListener('mouseup', handleSelection);
+    document.addEventListener('mouseup', handleSelectionEnd);
     // Mobile
-    document.addEventListener('touchend', handleSelection);
+    document.addEventListener('touchend', handleSelectionEnd);
+    // IMPORTANT: hide only
+    document.addEventListener('selectionchange', handleSelectionChange);
 
     return () => {
-      document.removeEventListener('mouseup', handleSelection);
-      document.removeEventListener('touchend', handleSelection);
+      document.removeEventListener('mouseup', handleSelectionEnd);
+      document.removeEventListener('touchend', handleSelectionEnd);
+      document.removeEventListener('selectionchange', handleSelectionChange);
     };
   }, [setSelectedText]);
 
