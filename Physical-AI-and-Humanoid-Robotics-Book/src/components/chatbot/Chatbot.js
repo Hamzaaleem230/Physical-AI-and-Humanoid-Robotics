@@ -9,12 +9,19 @@ function Chatbot({ selectedText, setSelectedText }) {
   const [tooltipVisible, setTooltipVisible] = useState(false);
   const [tooltipPos, setTooltipPos] = useState({ top: 0, left: 0 });
 
-  // Show tooltip after selection completes
+  const isMobileDevice = () => {
+    if (typeof window === 'undefined') return false;
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  };
+
+  // ✅ Desktop + Mobile text selection handler
   useEffect(() => {
-    const handleMouseUp = () => {
+    const handleSelection = () => {
       try {
         const selection = window.getSelection();
-        const text = selection ? selection.toString().trim() : '';
+        if (!selection) return;
+
+        const text = selection.toString().trim();
 
         // Hide tooltip if no valid selection
         if (!text || text.length < 3) {
@@ -23,27 +30,35 @@ function Chatbot({ selectedText, setSelectedText }) {
           return;
         }
 
-        setSelectedText(text);
-
-        // Get bounding rect for tooltip position
         const range = selection.getRangeAt(0);
         const rect = range.getBoundingClientRect();
 
+        setSelectedText(text);
+        const isMobile = isMobileDevice();
+
         setTooltipPos({
-          top: window.scrollY + rect.top - 10, // slightly above
+          top: isMobile
+            ? window.scrollY + rect.bottom + 12 // 📱 mobile → neeche
+            : window.scrollY + rect.top - 10, // 💻 desktop → upar
           left: rect.left + rect.width / 2,
         });
 
         setTooltipVisible(true);
       } catch (err) {
-        // safe fallback
         setTooltipVisible(false);
         setSelectedText('');
       }
     };
 
-    document.addEventListener('mouseup', handleMouseUp);
-    return () => document.removeEventListener('mouseup', handleMouseUp);
+    // Desktop
+    document.addEventListener('mouseup', handleSelection);
+    // Mobile
+    document.addEventListener('touchend', handleSelection);
+
+    return () => {
+      document.removeEventListener('mouseup', handleSelection);
+      document.removeEventListener('touchend', handleSelection);
+    };
   }, [setSelectedText]);
 
   // Auto hide tooltip on scroll
@@ -53,42 +68,25 @@ function Chatbot({ selectedText, setSelectedText }) {
     return () => window.removeEventListener('scroll', hide);
   }, []);
 
-  const handleTooltipClick = () => {
-    if (!selectedText) return;
-
-    setChatbotOpen(true); // Chatbot open karo
-    setTimeout(() => {
-      handleSendMessage(selectedText); // Auto message send
-    }, 150); // thoda delay taake chatbot open ho jaye
-  };
-
-  // IMPORTANT: open chat AND auto-send preserved selection
+  // ✅ Tooltip click → open chat + auto send
   const openChatWithSelection = () => {
-    // Preserve the text immediately — do NOT rely on selectedText later
     const textToExplain = selectedText?.trim();
+    if (!textToExplain) return;
 
-    if (!textToExplain || textToExplain.length === 0) return;
-
-    // Open chat first so ChatWindow mounts
     setIsOpen(true);
-
-    // Hide tooltip (this may clear browser selection, but we've preserved text)
     setTooltipVisible(false);
 
-    // Small delay to allow ChatWindow to render. Use preserved text variable.
     setTimeout(() => {
       window.dispatchEvent(
         new CustomEvent('AUTO_EXPLAIN_SELECTED_TEXT', {
           detail: textToExplain,
         })
       );
-
-      // Clear shared selectedText state so UI in ChatWindow shows empty selection area
       setSelectedText('');
-    }, 200); // 150-250ms is fine; 200ms is safe
+    }, 200);
   };
 
-  // Normal toggle
+  // Normal chat toggle
   const toggleChat = () => {
     setIsOpen((v) => !v);
     setTooltipVisible(false);
