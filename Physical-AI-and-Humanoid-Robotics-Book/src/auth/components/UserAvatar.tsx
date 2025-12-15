@@ -9,10 +9,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ fullName }) => {
   const initial = fullName ? fullName.charAt(0).toUpperCase() : '?';
 
   return (
-    <div
-      className={styles.avatarContainer} 
-      title={fullName}
-    >
+    <div className={styles.avatarContainer} title={fullName}>
       {initial}
     </div>
   );

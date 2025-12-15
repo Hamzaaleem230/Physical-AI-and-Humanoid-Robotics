@@ -1,35 +1,39 @@
 // src/theme/Root.js
 import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom/client';
+import { createPortal } from 'react-dom';
 import { AuthProvider } from '../auth/context/AuthProvider';
-import AuthNavbarItem from '../auth/components/AuthNavbarItem';
+import AuthNavbarItem from '@theme/NavbarItem/AuthNavbarItem';
 import Chatbot from '../components/chatbot/Chatbot';
 
-function Root({ children }) {
-
+export default function Root({ children }) {
   const [selectedText, setSelectedText] = useState('');
-  
-  // Inject navbar item ONE TIME, safely
+  const [navbarContainer, setNavbarContainer] = useState(null);
+
   useEffect(() => {
-    const container = document.getElementById('auth-status');
-    if (container) {
-      const root = ReactDOM.createRoot(container);
-      root.render(
-        <AuthProvider>
-          <AuthNavbarItem />
-        </AuthProvider>
-      );
-    }
+    const findContainer = () => {
+      const el = document.getElementById('auth-status');
+      if (el) {
+        setNavbarContainer(el);
+        return;
+      }
+      setTimeout(findContainer, 100);
+    };
+    findContainer();
   }, []);
 
   return (
     <AuthProvider>
       {children}
 
-      {/* Chatbot always receives one shared provider */}
-      <Chatbot selectedText={selectedText} setSelectedText={setSelectedText} />
+      {/* ✅ AUTH NAVBAR */}
+      {navbarContainer &&
+        createPortal(<AuthNavbarItem />, navbarContainer)}
+
+      {/* ✅ CHATBOT */}
+      <Chatbot
+        selectedText={selectedText}
+        setSelectedText={setSelectedText}
+      />
     </AuthProvider>
   );
 }
-
-export default Root;

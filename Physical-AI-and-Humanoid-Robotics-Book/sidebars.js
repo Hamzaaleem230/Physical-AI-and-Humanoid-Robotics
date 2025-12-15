@@ -90,7 +90,7 @@ module.exports = {
       label: 'Mini-Projects & Capstone',
       collapsible: true,
       collapsed: false,
-       link: {
+      link: {
         type: 'generated-index',
         description: 'Mini projects aur capstone modules ka overview.',
       },

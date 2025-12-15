@@ -22,14 +22,14 @@ const config = {
       'classic',
       {
         docs: {
-          sidebarPath: './sidebars.js',
+          sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           editUrl:
             'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book/edit/main/',
         },
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: require.resolve('./src/css/custom.css'),
         },
       },
     ],
@@ -37,22 +37,23 @@ const config = {
 
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
+
     navbar: {
       title: 'Physical AI and Humanoid Robotics',
       logo: {
-        alt: 'Physical AI Logo',
+        alt: 'Physical AI and Humanoid Robotics Logo',
         src: 'img/logo.svg',
       },
       items: [
         {
           type: 'docSidebar',
           sidebarId: 'humanoidRoboticsSidebar',
-          position: 'left',
           label: 'Book',
+          position: 'left',
         },
         {
           type: 'html',
-          value: '<div id="auth-status"></div>',
+          value: '<div id="auth-status"></div>', // Sign In / Sign Up buttons
           position: 'right',
         },
         {
@@ -62,6 +63,7 @@ const config = {
         },
       ],
     },
+
     footer: {
       style: 'dark',
       links: [
@@ -81,6 +83,7 @@ const config = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Hamza Aleem. Built with Docusaurus.`,
     },
+
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,

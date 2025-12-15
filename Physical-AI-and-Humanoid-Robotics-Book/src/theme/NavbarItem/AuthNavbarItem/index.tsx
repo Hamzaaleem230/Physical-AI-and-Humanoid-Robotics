@@ -1,27 +1,45 @@
 import React from 'react';
-// ✅ useAuth hook ko import karein (jo error handling karta hai)
 import { useAuth } from '../../../auth/context/AuthProvider';
+import UserAvatar from '../../../auth/components/UserAvatar';
+import styles from './AuthNavbarItem.module.css';
 
 export default function AuthNavbarItem() {
-  // ✅ useAuth hook se values nikaalein
-  const { user, logout, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading, openModal, logout } = useAuth();
 
   if (isLoading) {
-    return <span>Loading...</span>;
+    return <span className={styles.loading}>Loading...</span>;
   }
 
-  return user ? (
-    <button
-      onClick={logout}
-      style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
-    >
-            Logout ({user.full_name})    {' '}
-    </button>
-  ) : (
-    // Agar aap login/signin modal use kar rahe hain, toh yahan logic add karna hoga.
-    // Abhi ke liye, signin modal ka button hi rehne dete hain.
-    <a href="/login" style={{ textDecoration: 'none' }}>
-            Login    {' '}
-    </a>
+  // LOGGED IN
+  if (isAuthenticated && user) {
+    const goToProfile = () => {
+      window.location.href = '/profile'; // Safe and simple
+    };
+
+    return (
+      <div className={styles.container}>
+        <div className={styles.userInfo} onClick={goToProfile}>
+          <UserAvatar fullName={user.full_name} />
+          <span className={styles.username}>{user.full_name.split(' ')[0]}</span>
+        </div>
+
+        <button className={styles.logout} onClick={logout}>
+          Logout
+        </button>
+      </div>
+    );
+  }
+
+  // LOGGED OUT
+  return (
+    <div className={styles.container}>
+      <button className={styles.signin} onClick={() => openModal('login')}>
+        Sign In
+      </button>
+
+      <button className={styles.signup} onClick={() => openModal('signup')}>
+        Sign Up
+      </button>
+    </div>
   );
 }

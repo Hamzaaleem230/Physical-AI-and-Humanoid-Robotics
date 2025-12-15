@@ -1,5 +1,5 @@
 /* =========================================
-   🔹 ORIGINAL PROFILE PAGE CSS
+   🔹 ORIGINAL PROFILE PAGE CSS (ENHANCED)
 ========================================= */
 
 .profileContainer {
@@ -7,28 +7,37 @@
     color: var(--ifm-font-color-base);
     padding: 40px;
     min-height: 80vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .profileCard {
     background-color: var(--ifm-color-emphasis-100);
     padding: 30px;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: var(--ifm-shadow-md);
-    max-width: 600px;
+    max-width: 640px;
+    width: 100%;
     margin: 0 auto;
 }
 
+/* Header / Welcome */
 .profileCard h1 {
     color: var(--ifm-color-primary);
     border-bottom: 2px solid var(--ifm-color-emphasis-200);
-    padding-bottom: 10px;
-    margin-bottom: 25px;
+    padding-bottom: 12px;
+    margin-bottom: 28px;
+    font-size: 1.8rem;
 }
 
+/* Profile Rows */
 .detailRow {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
+    align-items: center;
+    padding: 12px 0;
     border-bottom: 1px solid var(--ifm-color-emphasis-200);
     font-size: 1.05em;
 }
@@ -38,87 +47,93 @@
 }
 
 .label {
-    font-weight: bold;
+    font-weight: 600;
     color: var(--ifm-font-color-secondary);
 }
 
 .value {
     color: var(--ifm-font-color-base);
     text-align: right;
+    font-weight: 500;
 }
 
+/* Loading / Error */
 .loading,
 .error {
     text-align: center;
     padding: 50px;
-    font-size: 1.2em;
+    font-size: 1.15em;
 }
 
 .error {
     color: var(--ifm-color-danger);
-    background-color: var(--ifm-color-danger-light);
-    border-radius: 4px;
+    background-color: var(--ifm-color-danger-lightest);
+    border-radius: 6px;
 }
 
+/* Dark mode enhancement */
 [data-theme='dark'] .profileCard {
-    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
 }
-
 
 /* =========================================
    📱 FULL RESPONSIVE CSS (ALL DEVICES)
 ========================================= */
 
-/* Large Tablets / Laptops (max-width 1024px) */
+/* Large Tablets / Laptops */
 @media (max-width: 1024px) {
     .profileContainer {
         padding: 30px;
     }
+
     .profileCard {
-        padding: 25px;
-        max-width: 90%;
-    }
-    .detailRow {
-        font-size: 1em;
+        padding: 26px;
+        max-width: 92%;
     }
 }
 
-/* Tablets (max-width 768px) */
+/* Tablets */
 @media (max-width: 768px) {
     .profileContainer {
-        padding: 25px;
+        padding: 24px;
     }
+
     .profileCard {
-        padding: 20px;
+        padding: 22px;
     }
+
     .detailRow {
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
-        text-align: left;
     }
+
     .value {
         text-align: left;
         width: 100%;
     }
+
     .profileCard h1 {
         font-size: 1.6rem;
     }
 }
 
-/* Mobile Devices (max-width 600px) */
+/* Mobile */
 @media (max-width: 600px) {
     .profileContainer {
         padding: 20px;
         min-height: auto;
     }
+
     .profileCard {
         padding: 18px;
-        border-radius: 6px;
+        border-radius: 8px;
     }
+
     .detailRow {
         font-size: 0.95rem;
     }
+
     .loading,
     .error {
         padding: 30px;
@@ -126,30 +141,35 @@
     }
 }
 
-/* Small Phones (max-width 420px) */
+/* Small Phones */
 @media (max-width: 420px) {
     .profileContainer {
         padding: 15px;
     }
+
     .profileCard {
         padding: 15px;
     }
+
     .profileCard h1 {
         font-size: 1.4rem;
     }
+
     .detailRow {
         font-size: 0.9rem;
     }
 }
 
-/* Very Small Phones (max-width 350px) */
+/* Very Small Phones */
 @media (max-width: 350px) {
     .profileCard {
         padding: 12px;
     }
+
     .profileCard h1 {
         font-size: 1.3rem;
     }
+
     .detailRow {
         font-size: 0.85rem;
     }
