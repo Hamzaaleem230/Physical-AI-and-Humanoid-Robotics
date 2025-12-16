@@ -1,14 +1,16 @@
+/* ======================================================
+   📌 FINAL MERGED & PERFECTED AUTH NAVBAR CSS 
+   (Username + Logout perfectly centered vertically & horizontally – just like your 2nd image)
+   (All your styling preserved + improvements from working version merged)
+   ====================================================== */
+
 .container {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.loading {
-  font-size: 14px;
-  opacity: 0.7;
-}
-
+/* --- User Info Section (Avatar + Username) --- */
 .userInfo {
   display: flex;
   align-items: center;
@@ -16,11 +18,16 @@
   cursor: pointer;
 }
 
+.userInfo:hover {
+  opacity: 0.8;
+}
+
 .username {
   font-weight: 600;
   color: var(--ifm-navbar-link-color);
 }
 
+/* --- Logout Button (Perfectly centered under username) --- */
 .logout {
   background: transparent;
   border: none;
@@ -29,16 +36,26 @@
   font-weight: bold;
 }
 
+.logout:hover {
+  color: #ff1a1a !important;
+  text-decoration: underline;
+}
+
+/* --- Logged Out State (Sign In / Sign Up Buttons) --- */
 .signin {
   background: transparent;
   border: none;
   cursor: pointer;
   font-weight: 600;
+  color: var(--ifm-navbar-link-color);
   transition: all 0.2s ease-in;
+  padding: 8px 15px;
+  font-size: 14px;
 }
 
 .signin:hover {
   transform: scale(1.03);
+  color: var(--ifm-color-primary);
 }
 
 .signin:active {
@@ -47,17 +64,72 @@
 
 .signup {
   background: var(--ifm-color-primary);
-  color: white;
+  color: white !important;
   border: none;
-  padding: 4px 10px;
-  border-radius: 6px;
+  padding: 8px 18px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 700;
+  margin-left: 10px;
+  font-size: 14px;
+  transition: background 0.2s, transform 0.2s;
 }
 
 .signup:hover {
   background: var(--ifm-color-primary-dark);
+  transform: scale(1.03);
 }
 
 .signup:active {
-  background: var(--ifm-color-primary-darker);
+  transform: scale(0.98);
+}
+
+/* --- Loading State --- */
+.loading {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* ======================================================
+   📱 FULLY RESPONSIVE SETTINGS (Mobile & Tablet)
+   ====================================================== */
+
+@media (max-width: 997px) {
+  .container {
+    padding: 0 5px !important;
+  }
+  
+  .username {
+    font-size: 15px !important;
+  }
+  
+  .logout {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .userInfo {
+    gap: 6px !important;
+  }
+  
+  .username {
+    font-size: 14px !important;
+  }
+  
+  .logout {
+    font-size: 9px !important;
+  }
+}
+
+/* Extra Small Phones */
+@media (max-width: 480px) {
+  .signin, .signup {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+  
+  .signup {
+    margin-left: 5px;
+  }
 }

@@ -195,8 +195,10 @@ header.navbar {
 }
 
 /* --- Auth Button (Login/Signup) ko mobile me show karna --- */
+/* Glitch Fix: Mobile aur Desktop dono ke liye layout reserve rakhega */
 #auth-status {
   display: inline-block;
+  min-width: 155px; /* Added min-width to stop jumping */
 }
 
 /* --- Mobile navbar fix (<768px) --- */
@@ -218,6 +220,7 @@ header.navbar {
   /* Login/Signup always visible right side */
   #auth-status {
     display: inline-block !important;
+    min-width: auto; /* Mobile par width auto */
   }
 }
 
@@ -243,26 +246,26 @@ header.navbar {
 
   /* Add short title next to logo on mobile */
   /* Mobile title next to logo */
-@media (max-width: 768px) {
-  .navbar__logo::after {
-    content: "Home";
-    margin-left: 10px;
-    font-size: 17px;
-    font-weight: 600 !important; /* ALWAYS bold */
-    position: relative;
-    top: -10px; /* vertical alignment */
-  }
+  @media (max-width: 768px) {
+    .navbar__logo::after {
+      content: "Home";
+      margin-left: 10px;
+      font-size: 17px;
+      font-weight: 600 !important; /* ALWAYS bold */
+      position: relative;
+      top: -10px; /* vertical alignment */
+    }
 
-  /* Light mode text color */
-  [data-theme='light'] .navbar__logo::after {
-    color: #000 !important;  /* black */
-  }
+    /* Light mode text color */
+    [data-theme='light'] .navbar__logo::after {
+      color: #000 !important;  /* black */
+    }
 
-  /* Dark mode text color */
-  [data-theme='dark'] .navbar__logo::after {
-    color: #E3E3E3 !important; /* light gray */
+    /* Dark mode text color */
+    [data-theme='dark'] .navbar__logo::after {
+      color: #E3E3E3 !important; /* light gray */
+    }
   }
-}
 
 }
 
@@ -390,13 +393,14 @@ html[data-theme='dark'] .navbar {
 }
 
 /* ===============================
-   AUTH BUTTONS – DESKTOP
+    AUTH BUTTONS – DESKTOP (FIXED)
 ================================ */
 @media (min-width: 998px) {
   #auth-status {
-    display: flex !important;
-    align-items: center;
-    gap: 10px;
+    display: inline-block !important; /* Flex ki wajah se sab ek line mein aa rahy thy, isliye inline-block kiya */
+    min-width: 140px; 
+    vertical-align: middle;
+    text-align: right;
   }
 }
 
@@ -416,4 +420,7 @@ html[data-theme='dark'] .navbar {
   }
 }
 
-
+@keyframes authFadeIn {
+  from { opacity: 0; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
+}

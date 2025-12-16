@@ -28,42 +28,73 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<AuthUserProfile | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // 🔹 Initialize from LocalStorage for stable initial render
+  const [user, setUser] = useState<AuthUserProfile | null>(() => {
+    const saved = localStorage.getItem('authUser');
+    return saved ? JSON.parse(saved) : null;
+  });
+
+  const [isLoading, setIsLoading] = useState(!user); // if no user in LS, start loading
   const isAuthenticated = !!user;
 
   // Modal State
   const [isSigninOpen, setIsSigninOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
+  // 🔹 Keep LocalStorage in sync whenever user changes
   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const currentUser = await getCurrentUser();
-        setUser(currentUser);
-      } catch (error) {
-        console.error('Failed to load user:', error);
-        setUser(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    if (user) {
+      localStorage.setItem('authUser', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('authUser');
+    }
+  }, [user]);
 
-    loadUser();
-  }, []);
+  // 🔹 Load user from API if not in LocalStorage
+  useEffect(() => {
+    if (!user) {
+      const loadUser = async () => {
+        try {
+          const currentUser = await getCurrentUser();
+          setUser(currentUser);
+        } catch (error) {
+          console.error('Failed to load user:', error);
+          setUser(null);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      loadUser();
+    } else {
+      setIsLoading(false);
+    }
+  }, [user]);
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
       await apiSignin({ email, password });
 
-      const freshUser = await getCurrentUser();  // FIX: always fetch fresh user
+      const freshUser = await getCurrentUser();  // always fetch fresh user
       setUser(freshUser);
 
       closeModal();
     } catch (error) {
       console.error('Login failed:', error);
       setUser(null);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const logout = async () => {
+    setIsLoading(true);
+    try {
+      await apiSignout();
+      setUser(null);
+    } catch (error) {
+      console.error('Logout failed:', error);
       throw error;
     } finally {
       setIsLoading(false);
@@ -79,19 +110,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const closeModal = () => {
     setIsSigninOpen(false);
     setIsSignupOpen(false);
-  };
-
-  const logout = async () => {
-    setIsLoading(true);
-    try {
-      await apiSignout();
-      setUser(null);
-    } catch (error) {
-      console.error('Logout failed:', error);
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const contextValue: AuthContextType = {
