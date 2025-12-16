@@ -13,14 +13,16 @@ export default function AuthNavbarItem() {
   // LOGGED IN
   if (isAuthenticated && user) {
     const goToProfile = () => {
-      window.location.href = '/profile'; // Safe and simple
+      window.location.href = '/profile';
     };
 
     return (
-      <div className={styles.container}>
+      <div className={`${styles.container} authNavbarItem`}>
         <div className={styles.userInfo} onClick={goToProfile}>
           <UserAvatar fullName={user.full_name} />
-          <span className={styles.username}>{user.full_name.split(' ')[0]}</span>
+          <span className={styles.username}>
+            {user.full_name.split(' ')[0]}
+          </span>
         </div>
 
         <button className={styles.logout} onClick={logout}>
@@ -32,12 +34,18 @@ export default function AuthNavbarItem() {
 
   // LOGGED OUT
   return (
-    <div className={styles.container}>
-      <button className={styles.signin} onClick={() => openModal('login')}>
+    <div className={`${styles.container} authNavbarItem`}>
+      <button
+        className={styles.signin}
+        onClick={() => openModal('login')}
+      >
         Sign In
       </button>
 
-      <button className={styles.signup} onClick={() => openModal('signup')}>
+      <button
+        className={styles.signup}
+        onClick={() => openModal('signup')}
+      >
         Sign Up
       </button>
     </div>

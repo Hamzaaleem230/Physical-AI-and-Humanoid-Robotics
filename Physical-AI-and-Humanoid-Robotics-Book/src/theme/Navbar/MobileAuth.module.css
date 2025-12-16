@@ -1,0 +1,66 @@
+/* =============================== */
+/* MOBILE NAVBAR AUTH (FIXED) */
+/* =============================== */
+
+.mobileAuthWrapper {
+  padding: 0;
+  border: none;
+
+  display: flex;
+  flex-direction: row;       /* 🔥 HORIZONTAL */
+  align-items: center;
+  gap: 8px;
+}
+
+/* Buttons — EXACT DESKTOP LOOK */
+.signin {
+  background: transparent;
+  border: 1px solid var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  height: 32px;
+  white-space: nowrap;
+}
+
+.signup {
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  height: 32px;
+  white-space: nowrap;
+}
+
+.logout {
+  background: transparent;
+  border: none;
+  color: var(--ifm-navbar-link-color);
+  font-weight: 600;
+}
+
+/* Logged-in user */
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+/* Desktop par hide (safe) */
+@media (min-width: 998px) {
+  .mobileAuthWrapper {
+    display: none !important;
+  }
+}
