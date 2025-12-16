@@ -245,7 +245,7 @@ header.navbar {
   /* Mobile title next to logo */
 @media (max-width: 768px) {
   .navbar__logo::after {
-    content: "";
+    content: "Home";
     margin-left: 10px;
     font-size: 17px;
     font-weight: 600 !important; /* ALWAYS bold */
