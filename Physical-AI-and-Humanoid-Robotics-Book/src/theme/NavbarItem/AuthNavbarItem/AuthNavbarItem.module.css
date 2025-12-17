@@ -5,6 +5,7 @@
    ====================================================== */
 
 .container {
+  min-height: 48px;   /* navbar ke saath stable */
   display: flex;
   align-items: center;
   gap: 8px;
@@ -23,8 +24,14 @@
 }
 
 .username {
-  font-weight: 600;
+  font-weight: bold;
   color: var(--ifm-navbar-link-color);
+  transition: all 0.2s ease-in;
+}
+
+.username:hover {
+  color: var(--ifm-color-primary);
+  transform: scale(1.02);
 }
 
 /* --- Logout Button (Perfectly centered under username) --- */
@@ -34,11 +41,13 @@
   cursor: pointer;
   color: var(--ifm-navbar-link-color);
   font-weight: bold;
+  transition: all 0.2s ease-in;
 }
 
 .logout:hover {
-  color: #ff1a1a !important;
-  text-decoration: underline;
+  color: var(--ifm-color-primary) !important;
+  transform: scale(1.02);
+
 }
 
 /* --- Logged Out State (Sign In / Sign Up Buttons) --- */

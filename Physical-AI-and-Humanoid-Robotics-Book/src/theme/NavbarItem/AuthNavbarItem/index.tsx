@@ -12,25 +12,28 @@ function AuthNavbarContent() {
     setMounted(true);
   }, []);
 
-  // 🔹 Glitch Fix: Loading state mein kuch bhi render mat karein 
+  // 🔹 Glitch Fix: Loading state mein kuch bhi render mat karein
   // CSS ka min-width space reserve rakhega
-  if (!mounted || isLoading) {
-    return <div className="authNavbarItem" style={{ visibility: 'hidden' }}></div>;
-  }
+ if (!mounted || isLoading) {
+  return (
+    <div
+      className={`authNavbarItem ${styles.container}`}
+      style={{ visibility: 'hidden' }}
+    >
+      placeholder
+    </div>
+  );
+}
+
 
   if (isAuthenticated && user) {
     return (
-      <div className="authNavbarItem">
-        <div 
-          className={styles.userInfo} 
-          onClick={() => window.location.href = '/profile'}
-          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-        >
+      <div className={`authNavbarItem ${styles.container}`}>
+        <div className={styles.userInfo} onClick={() => (window.location.href = '/profile')}>
           <UserAvatar fullName={user.full_name} />
-          <span className={styles.username} style={{ fontWeight: 600 }}>
-            {user.full_name.split(' ')[0]}
-          </span>
+          <span className={styles.username}>{user.full_name.split(' ')[0]}</span>
         </div>
+
         <button className={styles.logout} onClick={logout}>
           Logout
         </button>
@@ -51,9 +54,5 @@ function AuthNavbarContent() {
 }
 
 export default function AuthNavbarItem() {
-  return (
-    <BrowserOnly fallback={null}>
-      {() => <AuthNavbarContent />}
-    </BrowserOnly>
-  );
+  return <BrowserOnly fallback={null}>{() => <AuthNavbarContent />}</BrowserOnly>;
 }
