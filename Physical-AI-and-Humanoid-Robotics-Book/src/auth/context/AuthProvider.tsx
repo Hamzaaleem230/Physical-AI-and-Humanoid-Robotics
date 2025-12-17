@@ -28,56 +28,64 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  // 🔹 Initialize from LocalStorage for stable initial render
+  // 🔹 SAFE INITIALIZATION: Window check zaroori hai build error se bachne ke liye
   const [user, setUser] = useState<AuthUserProfile | null>(() => {
-    const saved = localStorage.getItem('authUser');
-    return saved ? JSON.parse(saved) : null;
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('authUser');
+      return saved ? JSON.parse(saved) : null;
+    }
+    return null;
   });
 
-  const [isLoading, setIsLoading] = useState(!user); // if no user in LS, start loading
+  // State initialization
+  const [isLoading, setIsLoading] = useState(true); 
   const isAuthenticated = !!user;
 
   // Modal State
   const [isSigninOpen, setIsSigninOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
-  // 🔹 Keep LocalStorage in sync whenever user changes
+  // 🔹 SAFE LOCALSTORAGE SYNC: Browser check ke sath
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('authUser', JSON.stringify(user));
-    } else {
-      localStorage.removeItem('authUser');
+    if (typeof window !== 'undefined') {
+      if (user) {
+        localStorage.setItem('authUser', JSON.stringify(user));
+      } else {
+        localStorage.removeItem('authUser');
+      }
     }
   }, [user]);
 
-  // 🔹 Load user from API if not in LocalStorage
+  // 🔹 LOAD USER FROM API: Build safe version
   useEffect(() => {
-    if (!user) {
-      const loadUser = async () => {
-        try {
-          const currentUser = await getCurrentUser();
-          setUser(currentUser);
-        } catch (error) {
-          console.error('Failed to load user:', error);
-          setUser(null);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      loadUser();
-    } else {
-      setIsLoading(false);
-    }
-  }, [user]);
+    const loadUser = async () => {
+      // Agar user pehle se hai (LocalStorage se), to seedha loading false kar do
+      if (user) {
+        setIsLoading(false);
+        return;
+      }
 
+      try {
+        const currentUser = await getCurrentUser();
+        setUser(currentUser);
+      } catch (error) {
+        console.error('Failed to load user:', error);
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    loadUser();
+  }, []); // Run only once on mount
+
+  // 🔹 LOGIN FUNCTION (As It Is)
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
       await apiSignin({ email, password });
-
-      const freshUser = await getCurrentUser();  // always fetch fresh user
+      const freshUser = await getCurrentUser();
       setUser(freshUser);
-
       closeModal();
     } catch (error) {
       console.error('Login failed:', error);
@@ -88,6 +96,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  // 🔹 LOGOUT FUNCTION (As It Is)
   const logout = async () => {
     setIsLoading(true);
     try {
@@ -101,6 +110,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  // 🔹 MODAL FUNCTIONS (As It Is)
   const openModal = (type: 'login' | 'signup') => {
     closeModal();
     if (type === 'login') setIsSigninOpen(true);
