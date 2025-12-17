@@ -1,41 +1,41 @@
-import React, { useState, useRef, useEffect } from "react";
-import styles from "./ChatWindow.module.css";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import React, { useState, useRef, useEffect } from 'react';
+import styles from './ChatWindow.module.css';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-const SESSION_STORAGE_KEY = "chatbot_messages";
+const SESSION_STORAGE_KEY = 'chatbot_messages';
 
 function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
   const { siteConfig } = useDocusaurusContext();
   const BACKEND_URL = siteConfig.customFields.BACKEND_URL;
 
   const [messages, setMessages] = useState(() => {
-    if (typeof window === "undefined" || typeof window.sessionStorage === "undefined") {
-      return [{ id: 1, text: "Welcome! How can I help you today?", sender: "bot" }];
+    if (typeof window === 'undefined' || typeof window.sessionStorage === 'undefined') {
+      return [{ id: 1, text: 'Welcome! How can I help you today?', sender: 'bot' }];
     }
 
     try {
       const saved = window.sessionStorage.getItem(SESSION_STORAGE_KEY);
       return saved
         ? JSON.parse(saved)
-        : [{ id: 1, text: "Welcome! How can I help you today?", sender: "bot" }];
+        : [{ id: 1, text: 'Welcome! How can I help you today?', sender: 'bot' }];
     } catch (error) {
-      return [{ id: 1, text: "Welcome! How can I help you today?", sender: "bot" }];
+      return [{ id: 1, text: 'Welcome! How can I help you today?', sender: 'bot' }];
     }
   });
 
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       window.sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(messages));
     }
   }, [messages]);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -53,7 +53,7 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
       const userMessage = {
         id: messages.length + 1,
         text: `Explain: "${text}"`,
-        sender: "user",
+        sender: 'user',
       };
       setMessages((prev) => [...prev, userMessage]);
 
@@ -61,11 +61,11 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
       sendQueryToBackend(`Explain: "${text}"`, text);
 
       // Clear selection
-      setSelectedText("");
+      setSelectedText('');
     };
 
-    window.addEventListener("AUTO_EXPLAIN_SELECTED_TEXT", handler);
-    return () => window.removeEventListener("AUTO_EXPLAIN_SELECTED_TEXT", handler);
+    window.addEventListener('AUTO_EXPLAIN_SELECTED_TEXT', handler);
+    return () => window.removeEventListener('AUTO_EXPLAIN_SELECTED_TEXT', handler);
   }, [messages, setSelectedText]);
   // ⭐⭐⭐ END OF AUTO EXPLAIN USE EFFECT ⭐⭐⭐
 
@@ -81,14 +81,14 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
 
     setMessages((prev) => [
       ...prev,
-      { id: botResponseId, text: "", sender: "bot", streaming: true },
+      { id: botResponseId, text: '', sender: 'bot', streaming: true },
     ]);
 
     try {
       const response = await fetch(`${BACKEND_URL}/chat`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ message: userMessageText, context }),
       });
@@ -106,9 +106,7 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
 
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === botResponseId
-            ? { ...msg, text: fullResponse, streaming: false }
-            : msg
+          msg.id === botResponseId ? { ...msg, text: fullResponse, streaming: false } : msg
         )
       );
     } catch (error) {
@@ -116,7 +114,7 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
       setMessages((prev) =>
         prev.map((msg) =>
           msg.id === botResponseId
-            ? { ...msg, text: "Error: " + error.message, streaming: false }
+            ? { ...msg, text: 'Error: ' + error.message, streaming: false }
             : msg
         )
       );
@@ -130,17 +128,17 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
       const userMessage = {
         id: messages.length + 1,
         text: input,
-        sender: "user",
+        sender: 'user',
       };
 
       setMessages((prev) => [...prev, userMessage]);
       sendQueryToBackend(input);
-      setInput("");
+      setInput('');
     }
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter" && input.trim() && !isLoading) {
+    if (e.key === 'Enter' && input.trim() && !isLoading) {
       handleSendMessage();
     }
   };
@@ -148,9 +146,9 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
   if (!isOpen) return null;
 
   return (
-    <div className={styles.chatWindow}>
+    <div className={`${styles.chatWindow} ${isOpen ? styles.isOpen : ''}`}>
       <div className={styles.header}>
-        <h3>Chat with our AI</h3>
+        <h3>🤖 Chat with our AI</h3>
         <button onClick={onClose} className={styles.closeButton}>
           X
         </button>
@@ -169,16 +167,14 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
             <blockquote>{selectedText}</blockquote>
 
             <button
-              onClick={() =>
-                sendQueryToBackend(`Explain: "${selectedText}"`, selectedText)
-              }
+              onClick={() => sendQueryToBackend(`Explain: "${selectedText}"`, selectedText)}
               disabled={isLoading}
             >
               Explain Selected Text
             </button>
 
             <button
-              onClick={() => setSelectedText("")}
+              onClick={() => setSelectedText('')}
               disabled={isLoading}
               className={styles.clearSelectedTextButton}
             >
@@ -190,9 +186,7 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
         {messages.map((msg) => (
           <div key={msg.id} className={`${styles.message} ${styles[msg.sender]}`}>
             {msg.text}
-            {msg.streaming && (
-              <span className={styles.streamingIndicator}>Thinking...</span>
-            )}
+            {msg.streaming && <span className={styles.streamingIndicator}>Thinking...</span>}
           </div>
         ))}
 
