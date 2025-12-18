@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from './ChatWindow.module.css';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { enrichChatbotPrompt } from '../../utils/personalizationUtils';
+import withPersonalization from '../../hocs/withPersonalization'; 
 
 const SESSION_STORAGE_KEY = 'chatbot_messages';
 
-function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
+function ChatWindow({ isOpen, onClose, selectedText, setSelectedText, personalizationUtils }) { // Receive personalizationUtils
   const { siteConfig } = useDocusaurusContext();
   const BACKEND_URL = siteConfig.customFields.BACKEND_URL;
 
@@ -85,12 +87,17 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
     ]);
 
     try {
+      // Enrich the user's message with personalization context
+      const enrichedMessage = personalizationUtils?.userPreferences
+        ? enrichChatbotPrompt(userMessageText, personalizationUtils.userPreferences)
+        : userMessageText;
+
       const response = await fetch(`${BACKEND_URL}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: userMessageText, context }),
+        body: JSON.stringify({ message: enrichedMessage, context }),
       });
 
       if (!response.ok) {
@@ -210,4 +217,4 @@ function ChatWindow({ isOpen, onClose, selectedText, setSelectedText }) {
   );
 }
 
-export default ChatWindow;
+export default withPersonalization(ChatWindow);

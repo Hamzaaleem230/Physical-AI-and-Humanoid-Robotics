@@ -1,17 +1,21 @@
-from sqlalchemy import Column, String, TIMESTAMP, ForeignKey, Uuid # <--- FIX: Uuid import kiya
-from sqlalchemy.orm import declarative_base, relationship
+# C:\Users\syeda\...\backend\auth-server\app\models.py
+
+from sqlalchemy import Column, String, TIMESTAMP, ForeignKey
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from .database import Base
 import uuid
 
-# Base ko yahan define kiya gaya hai, jo theek hai agar yeh file pehle import ho rahi ho.
-# Base = declarative_base()
+# NOTE:
+# Using String(36) to store UUIDs as text makes this compatible with SQLite
+# and avoids dialect-specific UUID column issues.
+def gen_uuid_str():
+    return str(uuid.uuid4())
 
 class User(Base):
     __tablename__ = "users"
 
-    # FIX: Column type ko Uuid() kar diya gaya hai
-    id = Column(Uuid(), primary_key=True, default=uuid.uuid4) 
+    id = Column(String(36), primary_key=True, default=gen_uuid_str)
     email = Column(String(255), unique=True, nullable=False)
     password_hash = Column(String(255), nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=func.now())
@@ -24,10 +28,8 @@ class User(Base):
 class Profile(Base):
     __tablename__ = "profiles"
 
-    # FIX: Column type ko Uuid() kar diya gaya hai
-    id = Column(Uuid(), primary_key=True, default=uuid.uuid4) 
-    # FIX: ForeignKey column type ko bhi Uuid() kar diya gaya hai
-    user_id = Column(Uuid(), ForeignKey("users.id"), nullable=False) 
+    id = Column(String(36), primary_key=True, default=gen_uuid_str)
+    user_id = Column(String(36), ForeignKey("users.id"), nullable=False)
     full_name = Column(String(255))
     skill_level = Column(String(50))
     hardware = Column(String(255))

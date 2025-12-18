@@ -84,6 +84,26 @@ module.exports = {
       ],
     },
 
+    // Personalization Feature
+    {
+      type: 'category',
+      label: 'Personalization',
+      collapsible: true,
+      collapsed: false,
+      items: [
+        {
+          type: 'link',
+          label: 'Personalization Settings',
+          href: '/personalization-settings',
+        },
+        {
+          type: 'link',
+          label: 'Recommendations',
+          href: '/recommendations',
+        },
+      ],
+    },
+
     // MINI PROJECTS (EMPTY BUT SAFE)
     {
       type: 'category',

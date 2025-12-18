@@ -1,8 +1,8 @@
 <!-- Sync Impact Report:
-Version change: 1.1.0 → 1.2.0
+Version change: 1.2.0 → 1.3.0
 Modified principles: None
 Added sections:
-- Principle VII: User Authentication System
+- Principle VIII: Content Personalization
 Removed sections: None
 Templates requiring updates:
 - .specify/templates/plan-template.md: ✅ up-to-date (dynamic)
@@ -54,6 +54,16 @@ A user authentication and profile system will be integrated into the Docusaurus 
 - **UI/UX Integration**: The authentication components (signup/signin) must be accessible from the global navigation bar of the Docusaurus site and must not interfere with the static site generation (`npm run build`).
 - **API Requirements**: The backend will expose standard authentication endpoints (`/signup`, `/signin`, `/signout`, `/me`) and a profile update endpoint (`/profile-update`). CORS must be configured to allow requests from the frontend.
 
+### VIII. Content Personalization
+A content personalization feature will be developed to tailor the learning experience based on user profiles.
+
+- **Strict Scoping**: All work for this feature must be contained within the `004-content-personalization` project folder. Specifications and related documents will reside in `specs/004-content-personalization/`. No modifications shall be made to existing projects (`001-physical-ai-book`, `002-rag-chatbot`, `003-auth-system`).
+- **Integration**:
+    - The feature will use the content from `001-physical-ai-book` as a read-only reference.
+    - It will integrate with the `002-rag-chatbot` without modifying its existing functionality.
+    - It will use the user identity and profile data from the `003-auth-system`.
+- **Workflow**: Development must strictly follow the `SpecifyPlus` workflow, waiting for explicit user commands (`/sp.specify`, `/sp.plan`, `/sp.tasks`, `/sp.implement`) for each stage.
+
 ## Key Standards
 
 - Saare factual claims traceable sources ke sath honge.
@@ -83,4 +93,4 @@ Success criteria:
 - Robotics concepts (AI control, sensing, locomotion, embodiment) academically correct hon.
 - Peer-review check pass ho jae (accuracy, clarity, reproducibility).
 
-**Version**: 1.2.0 | **Ratified**: TODO(RATIFICATION_DATE): Original adoption date is unknown. | **Last Amended**: 2025-12-09
+**Version**: 1.3.0 | **Ratified**: TODO(RATIFICATION_DATE): Original adoption date is unknown. | **Last Amended**: 2025-12-17

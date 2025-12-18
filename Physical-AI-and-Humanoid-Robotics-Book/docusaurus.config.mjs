@@ -57,6 +57,16 @@ const config = {
           position: 'right',
         },
         {
+          to: '/personalization-settings',
+          label: '⚙️ Settings',
+          position: 'right',
+        },
+        {
+          to: '/recommendations',
+          label: '✨ For You',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book',
           label: 'GitHub',
           position: 'right',
