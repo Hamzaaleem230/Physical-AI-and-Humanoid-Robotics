@@ -59,7 +59,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // 🔹 LOAD USER FROM API: Build safe version
   useEffect(() => {
     const loadUser = async () => {
-      // Agar user pehle se hai (LocalStorage se), to seedha loading false kar do
       if (user) {
         setIsLoading(false);
         return;
@@ -77,16 +76,43 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
     
     loadUser();
-  }, []); // Run only once on mount
+  }, []); 
 
-  // 🔹 LOGIN FUNCTION (As It Is)
+  // 🔹 LOGIN FUNCTION (FINAL FIXED & ERROR FREE)
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      await apiSignin({ email, password });
+      // 1. Signin call se response lein (any use kiya taake TS error na de)
+      const response: any = await apiSignin({ email, password });
+      
+      console.log("Login Response Debug:", response);
+
+      // 2. Response se asli user_id nikal kar save karein
+      if (response) {
+        // Auth backend ya to user_id bhej raha hai ya id
+        const finalId = response.user_id || response.id;
+        
+        if (finalId) {
+          const idAsString = finalId.toString();
+          // Dono keys update karein taake Personalization backend ko sahi ID mile
+          localStorage.setItem('jwtToken', idAsString);
+          localStorage.setItem('userId', idAsString);
+          console.log("Storage Updated: jwtToken & userId set to", idAsString);
+        }
+      }
+
+      // 3. Current user details fetch karein
       const freshUser = await getCurrentUser();
       setUser(freshUser);
+      
+      // 4. Modal band karein
       closeModal();
+      
+      // 5. Chota sa delay taake storage confirm ho jaye phir refresh
+      setTimeout(() => {
+        window.location.reload();
+      }, 150);
+
     } catch (error) {
       console.error('Login failed:', error);
       setUser(null);
@@ -96,12 +122,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // 🔹 LOGOUT FUNCTION (As It Is)
+  // 🔹 LOGOUT FUNCTION
   const logout = async () => {
     setIsLoading(true);
     try {
       await apiSignout();
+      // Token aur ID saaf karein
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('userId');
       setUser(null);
+      window.location.reload();
     } catch (error) {
       console.error('Logout failed:', error);
       throw error;
@@ -110,7 +140,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // 🔹 MODAL FUNCTIONS (As It Is)
+  // 🔹 MODAL FUNCTIONS
   const openModal = (type: 'login' | 'signup') => {
     closeModal();
     if (type === 'login') setIsSigninOpen(true);
@@ -135,15 +165,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   return (
     <AuthContext.Provider value={contextValue}>
       {children}
-
-      {/* AUTH MODALS */}
       <SigninModal isOpen={isSigninOpen} onClose={closeModal} />
       <SignupModal isOpen={isSignupOpen} onClose={closeModal} />
     </AuthContext.Provider>
   );
 };
 
-// Custom hook for consuming the context
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (!context) {

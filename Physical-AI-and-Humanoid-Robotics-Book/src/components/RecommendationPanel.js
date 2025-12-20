@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import useAuth from '@site/src/hooks/useAuth';
+import { useAuth } from '../auth/context/AuthProvider';
 import { useHistory } from '@docusaurus/router';
 
 const PERSONALIZATION_API_BASE_URL =
   'https://hamzasyed001122-content-personalization-backend.hf.space/personalization';
 
 function RecommendationPanel() {
-  const { jwtToken } = useAuth();
+  const { jwtToken, openModal, user } = useAuth(); 
   const history = useHistory();
+
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,8 +16,9 @@ function RecommendationPanel() {
 
   useEffect(() => {
     const fetchRecommendations = async () => {
-      // 1. Agar login nahi hai toh kuch fetch na karein
-      if (!jwtToken) {
+      const activeToken = jwtToken || localStorage.getItem('jwtToken');
+
+      if (!activeToken) {
         setLoading(false);
         return;
       }
@@ -24,20 +26,32 @@ function RecommendationPanel() {
       setLoading(true);
       setError(null);
       try {
+        // FIX: cache: 'no-store' add kiya hai taake settings ke baad purana data na dikhaye
         const response = await fetch(`${PERSONALIZATION_API_BASE_URL}/recommendations`, {
-          headers: { Authorization: `Bearer ${jwtToken}` },
+          method: 'GET',
+          headers: { 
+            Authorization: `Bearer ${activeToken}`,
+            'Cache-Control': 'no-cache'
+          },
+          cache: 'no-store' 
         });
 
         if (response.status === 404) {
-          // User exists but no preferences found
           setHasPreferences(false);
           setRecommendations([]);
         } else if (!response.ok) {
           throw new Error(`Server status: ${response.status}`);
         } else {
           const data = await response.json();
-          setRecommendations(data.recommendations || []);
-          setHasPreferences(true);
+          console.log("RECO_DEBUG:", data); // Ye line add karein
+          // Agar data mil gaya toh update karein
+          if (data.recommendations && data.recommendations.length > 0) {
+            setRecommendations(data.recommendations);
+            setHasPreferences(true);
+          } else {
+            // Agar backend se abhi processing chal rahi ho toh
+            setHasPreferences(false);
+          }
         }
       } catch (e) {
         console.error('Error fetching recommendations:', e);
@@ -48,41 +62,36 @@ function RecommendationPanel() {
     };
 
     fetchRecommendations();
-  }, [jwtToken]);
+    // dependency array mein user aur jwtToken dono hain taake state change par trigger ho
+  }, [jwtToken, user]); 
 
-  // UI Case 1: User Logged In nahi hai
-  if (!jwtToken) {
+  // UI Case 1: Not Logged In
+  if (!jwtToken && !user && !localStorage.getItem('jwtToken')) {
     return (
-      <div style={{ padding: '15px', border: '1px solid #eee', borderRadius: '8px', textAlign: 'center' }}>
-        <p>Please <b>Login</b> to see personalized topics.</p>
+      <div style={{ padding: '20px', border: '1px solid #ffba08', borderRadius: '12px', textAlign: 'center', background: 'rgba(255, 186, 8, 0.1)', color: '#fff' }}>
+        <p style={{ marginBottom: '15px' }}>Please <b>Sign In</b> to see personalized topics.</p>
         <button 
-          onClick={() => history.push('/login')}
-          style={{ padding: '5px 15px', backgroundColor: '#25c2a0', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+          onClick={() => openModal('login')} 
+          style={{ padding: '8px 20px', backgroundColor: '#25c2a0', color: '#180909ff', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
         >
-          Login
+          Sign In
         </button>
       </div>
     );
   }
 
   if (loading)
-    return <div style={{ padding: '10px', color: '#666' }}>Finding best topics for you...</div>;
+    return <div style={{ padding: '20px', color: '#25c2a0', textAlign: 'center' }}>✨ Finding best topics for you...</div>;
 
-  // UI Case 2: User Login hai par Preferences set nahi hain (Popup Style Notice)
+  // UI Case 2: No Preferences (Go to Settings)
   if (!hasPreferences || recommendations.length === 0) {
     return (
-      <div style={{ 
-        padding: '15px', 
-        border: '2px dashed #ffba08', 
-        borderRadius: '8px', 
-        background: '#fff9e6',
-        textAlign: 'center' 
-      }}>
-        <h4 style={{ margin: '0 0 10px 0', color: '#856404' }}>✨ Personalize Your Journey</h4>
-        <p style={{ fontSize: '0.9em' }}>Set your preferences to get AI-powered recommendations.</p>
+      <div style={{ padding: '20px', border: '1px solid #ffba08', borderRadius: '12px', background: 'rgba(255, 186, 8, 0.1)', textAlign: 'center' }}>
+        <h4 style={{ margin: '0 0 10px 0', color: '#ffba08' }}>✨ Personalize Your Journey</h4>
+        <p style={{ fontSize: '0.9em', color: '#eee', marginBottom: '15px' }}>Set your preferences to get AI-powered recommendations.</p>
         <button 
           onClick={() => history.push('/personalization-settings')}
-          style={{ padding: '8px 20px', backgroundColor: '#ffba08', color: '#000', border: 'none', borderRadius: '5px', fontWeight: 'bold', cursor: 'pointer' }}
+          style={{ padding: '8px 20px', backgroundColor: '#25c2a0', color: '#180909ff', border: 'none', borderRadius: '8px', cursor: 'pointer', transition: 'all 0.2s ease-in', fontWeight: 'bold' }}
         >
           Go to Settings
         </button>
@@ -90,22 +99,14 @@ function RecommendationPanel() {
     );
   }
 
-  // UI Case 3: Sab set hai, Recommendations dikhayein
+  // UI Case 3: Success Display
   return (
-    <div
-      style={{
-        padding: '15px',
-        border: '1px solid #25c2a0',
-        borderRadius: '8px',
-        background: 'rgba(37, 194, 160, 0.05)',
-      }}
-    >
-      <h3 style={{ marginTop: 0, color: '#25c2a0' }}>Suggested for You</h3>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+    <div style={{ padding: '20px', border: '1px solid #25c2a0', borderRadius: '12px', background: '#1b1b1d' }}>
+      <h3 style={{ marginTop: 0, color: '#25c2a0', borderBottom: '1px solid #333', paddingBottom: '10px' }}>Suggested for You</h3>
+      <ul style={{ listStyle: 'none', padding: 0, margin: '15px 0 0 0' }}>
         {recommendations.map((item, index) => {
           const id = item.contentId || item.content_id || item.id;
           const title = item.title || 'Humanoid Robotics Topic';
-          
           if (!id) return null;
 
           let finalPath = `/${id}`;
@@ -151,11 +152,11 @@ function RecommendationPanel() {
           }
 
           return (
-            <li key={id || index} style={{ marginBottom: '12px' }}>
-              <a href={finalPath} style={{ fontWeight: 'bold', color: '#25c2a0', textDecoration: 'none' }}>
+            <li key={id || index} style={{ marginBottom: '15px', padding: '12px', borderRadius: '8px', background: 'rgba(37, 194, 160, 0.05)', border: '1px solid #333' }}>
+              <a href={finalPath} style={{ fontWeight: 'bold', color: '#25c2a0', textDecoration: 'none', display: 'block' }}>
                 {title}
               </a>
-              <div style={{ fontSize: '0.75em', color: '#888' }}>
+              <div style={{ fontSize: '0.8em', color: '#888', marginTop: '5px' }}>
                 Relevance: {item.score ? Math.round(item.score * 100) : '95'}%
               </div>
             </li>
