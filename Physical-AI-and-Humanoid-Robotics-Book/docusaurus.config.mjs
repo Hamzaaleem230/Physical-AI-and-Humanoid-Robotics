@@ -67,7 +67,7 @@ const config = {
           position: 'right',
         },
         {
-          href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics-Book',
+          href: 'https://github.com/Hamzaaleem230/Physical-AI-and-Humanoid-Robotics.git',
           label: 'GitHub',
           position: 'right',
         },
