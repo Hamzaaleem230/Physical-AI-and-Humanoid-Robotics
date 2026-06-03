@@ -11,8 +11,7 @@ import asyncio
 from pathlib import Path
 
 from .services.rag_pipeline import rag_pipeline
-from backend.scripts.upload_to_qdrant import full_ingestion_pipeline # Import the ingestion pipeline
-
+from scripts.upload_to_qdrant import full_ingestion_pipeline
 app = FastAPI(
     title="RAG Chatbot API",
     description="API for the Physical AI book's RAG chatbot.",
