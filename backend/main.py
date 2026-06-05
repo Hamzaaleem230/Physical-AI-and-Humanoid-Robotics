@@ -11,8 +11,8 @@ from pathlib import Path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))) 
 
 
-from .services.rag_pipeline import rag_pipeline
-from backend.scripts.upload_to_qdrant import full_ingestion_pipeline # Ingestion pipeline import
+from services.rag_pipeline import rag_pipeline
+from scripts.upload_to_qdrant import full_ingestion_pipeline # Ingestion pipeline import
 
 app = FastAPI(
     title="RAG Chatbot API",
