@@ -2,9 +2,9 @@ import os
 from pathlib import Path
 from typing import List, Dict
 from qdrant_client import QdrantClient, models
-from backend.scripts.parse_docs import parse_docusaurus_docs, chunk_text
-from backend.app.services.embedding_service import EmbeddingService
-from backend.app.services.vector_store import get_qdrant_client
+from scripts.parse_docs import parse_docusaurus_docs, chunk_text
+from app.services.embedding_service import EmbeddingService
+from app.services.vector_store import get_qdrant_client
 
 def upload_chunks_to_qdrant(
     qdrant_client: QdrantClient,
